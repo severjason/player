@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
 import { mainTheme } from '../../styles/themes';
+import { Player } from '../../components'
+import { Search } from "../../containers";
 
-const HomeWrapper = styled('div')`
+const HomeStyle = styled('div')`
   display: flex;
   position: absolute;
   align-items: center;
@@ -31,11 +34,16 @@ const HomeWrapper = styled('div')`
 class Home extends Component {
   render() {
     return (
-      <HomeWrapper theme={mainTheme}>
+      <HomeStyle theme={mainTheme}>
         <div className='container'>
-          Home screen
+          <Switch>
+            <Route path="/player" render={()=><Player/>}/>
+            <Route path="/search" component={Search}/>
+            <Route exact path="/" render={() => <Redirect to="/player"/>}/>
+            <Route path="*" render={() => <Redirect to="/player"/>}/>
+          </Switch>
         </div>
-      </HomeWrapper>
+      </HomeStyle>
     );
   }
 }
