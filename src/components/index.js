@@ -1,4 +1,3 @@
-import Home from './Home';
 import PlayerContent from './Player/Content';
 import PlayerControls from './Player/Controls';
 import PlayerMenu from './Player/Menu';
@@ -9,7 +8,6 @@ import SearchResults from './Search/Results';
 import SearchedSong from './Search/Song';
 
 export {
-  Home,
   PlayerContent,
   PlayerControls,
   PlayerMenu,
