@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import { Player } from './containers';
+import { Home } from './containers';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Player />, document.getElementById('root'));
+ReactDOM.render(<Home />, document.getElementById('root'));
 registerServiceWorker();
