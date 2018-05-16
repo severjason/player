@@ -10,6 +10,7 @@ const MenuStyle = styled('div')`
   width: 100%;
   height: 2rem;
   line-height: 2rem;
+  padding: .5rem;
   
   a {
     font-size: 1.5rem;
