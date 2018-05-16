@@ -1,43 +1,50 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import styled from 'styled-components';
 import { mainTheme } from '../../styles/themes';
-import { Player } from '../../components'
-import { Search } from "../../containers";
-
-const HomeStyle = styled('div')`
-  display: flex;
-  position: absolute;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: ${props => props.theme.secondaryColor};
-  
-  .container {
-    width: 22rem;
-    height: 35rem;
-    margin: 0 auto;
-    padding: 5px;
-    background-color: ${props => props.theme.mainColor};
-    color: ${props => props.theme.mainTextColor};    
-    border-radius: 3px;
-    box-shadow: 0 0 20px 3px rgba(34,47,62,0.66);
-  }
-  
-  @media all and (max-width: 22rem) {
-    .container {
-      width: 100%;
-    }
-  }
-`;
+import HomeStyle from './style';
+import { Search, Player } from "../../containers";
+import PropTypes from "prop-types";
 
 class Home extends Component {
+
+  INITIAL_PLAYLIST = [
+    {
+      id: "136332802",
+      title: "Moth Into Flame",
+      duration: 30.7,
+      src: "https://cdns-preview-3.dzcdn.net/stream/c-37617212312b608120b650bdefd2441a-4.mp3",
+      artist: "Metallica",
+      album_cover: "https://e-cdns-images.dzcdn.net/images/cover/22df6212ca5a43b3ec83caa814e8da16/500x500-000000-80-0-0.jpg",
+      album_title: "Hardwired…To Self-Destruct (Deluxe)"
+    },
+    {
+      id: "57866851",
+      title: "Already",
+      duration: 30.7,
+      src: "https://cdns-preview-2.dzcdn.net/stream/c-2cbd99077d028e6f4eed2c00ba47943d-8.mp3",
+      artist: "DMX",
+      album_cover: "https://e-cdns-images.dzcdn.net/images/cover/13da2f03dfad7905ae3f78738861e9c2/500x500-000000-80-0-0.jpg",
+      album_title: "Undisputed",
+    },
+    {
+      id: "422496562",
+      title: "I See You",
+      duration: 30.7,
+      src: "https://cdns-preview-9.dzcdn.net/stream/c-95a21e76fa3387433edb4090f9b9d04b-4.mp3",
+      artist: "Kygo",
+      album_cover: "https://e-cdns-images.dzcdn.net/images/cover/a58a98cbf62441e85f48ed95d41689fe/500x500-000000-80-0-0.jpg",
+      album_title: "Kids in Love",
+    }
+  ];
+
+  state = Object.assign({}, {playlist: this.INITIAL_PLAYLIST});
+
   render() {
     return (
       <HomeStyle theme={mainTheme}>
         <div className='container'>
           <Switch>
-            <Route path="/player" render={()=><Player/>}/>
+            <Route path="/player" render={()=><Player playlist={this.state.playlist}/>}/>
             <Route path="/search" component={Search}/>
             <Route exact path="/" render={() => <Redirect to="/player"/>}/>
             <Route path="*" render={() => <Redirect to="/player"/>}/>
@@ -47,5 +54,17 @@ class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  playlist: PropTypes.arrayOf({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    duration: PropTypes.number,
+    src: PropTypes.string,
+    artist: PropTypes.string,
+    album_cover: PropTypes.string,
+    album_title: PropTypes.string,
+  }),
+};
 
 export default Home;
