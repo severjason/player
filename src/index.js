@@ -16,6 +16,9 @@ const GlobalStyle = styled.div`
       color: ${props => props.theme.secondaryColor};
     }
   }
+  img {
+    max-width: 100%;
+  }
 `;
 
 ReactDOM.render(
