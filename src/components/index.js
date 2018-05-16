@@ -1,5 +1,11 @@
-import Player from './Player';
+import PlayerMenu from './Player/Menu';
+import PlayerControls from './Player/Controls';
+import PlayerSlider from './Player/Slider';
+import SongInfo from './Player/SongInfo';
 
 export {
-  Player,
+  PlayerMenu,
+  PlayerControls,
+  SongInfo,
+  PlayerSlider,
 }
