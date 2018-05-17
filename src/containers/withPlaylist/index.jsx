@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from "prop-types";
 
-const withPlaylist = (Component) =>
-  class withPlaylist extends React.Component {
+export default function withPlaylist (Component) {
+  return class extends React.Component {
     state = {
       playlist: [
         {
@@ -36,10 +36,10 @@ const withPlaylist = (Component) =>
     };
 
     render() {
-      return (<Component {...this.props} playlist={this.state.playlist}/>);
+      return <Component {...this.props} playlist={this.state.playlist}/>;
     }
-
   };
+}
 
 withPlaylist.propTypes = {
   playlist: PropTypes.arrayOf({
@@ -52,5 +52,3 @@ withPlaylist.propTypes = {
     album_title: PropTypes.string,
   }),
 };
-
-export default withPlaylist;
