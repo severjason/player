@@ -14,7 +14,7 @@ const SongStyle = styled.div`
     
     img {
       display: block;
-      max-height: 18rem;
+      max-height: ${props => props.theme.maxWidth};
       margin: 0 auto;
       border-radius: 3px;
       box-shadow: 0 0 20px 3px rgba(0,0,0,0.66);
