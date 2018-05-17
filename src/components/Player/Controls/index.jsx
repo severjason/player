@@ -10,7 +10,7 @@ const PlayerControlsStyle = styled.div`
   width: 100%;
   
   .controls-element {
-    padding: 2rem 1rem;
+    padding: 1rem;
     font-size: 2rem;
     line-height: 4rem;
     :hover {
