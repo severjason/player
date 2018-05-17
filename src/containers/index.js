@@ -1,9 +1,11 @@
-import Home from './Home';
+import App from './App';
 import Search from './Search';
 import Player from './Player';
+import withPlaylist from './withPlaylist';
 
 export {
-  Home,
+  App,
   Search,
   Player,
+  withPlaylist,
 };
