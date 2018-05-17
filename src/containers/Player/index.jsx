@@ -77,9 +77,9 @@ class Player extends React.Component {
           playingStatus={this.state.playingStatus}
           song={this.state.currentSong}
           songPosition={this.state.position}
+          songDuration={this.state.currentSong.duration}
           onEndSong={this.handleForwardClick}
           onPlaying={this.handlePlaying}
-          getPercentPlayed={this.getPercentPlayed}
           onSlide={this.handleSlide}
         />
         <PlayerControls
