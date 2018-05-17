@@ -50,8 +50,8 @@ class Player extends React.Component {
           : Sound.status.PLAYING});
   };
 
-  handleSlide = (e) => {
-    this.setState({position: e.target.value * this.state.currentSong.duration * 1000});
+  handleSlide = (value) => {
+    this.setState({position: value * this.state.currentSong.duration * 1000});
   };
 
   handleForwardClick = () => {
