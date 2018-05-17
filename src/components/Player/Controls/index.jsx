@@ -1,51 +1,39 @@
 import React from 'react';
-import styled from 'styled-components';
 import Sound from 'react-sound';
-import { mainTheme } from '../../../styles/themes';
 import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/lib/md'
-
-const PlayerControlsStyle = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  
-  .controls-element {
-    padding: 1rem;
-    font-size: 2rem;
-    line-height: 4rem;
-    :hover {
-      color: ${props => props.theme.secondaryColor};
-      cursor: pointer;
-    }
-  }
-  .play {
-    font-size: 4rem;
-  }
-`;
+import PropTypes from "prop-types";
+import PlayerControlsStyle from './style';
 
 const PlayerControls = (props) => {
   return (
-      <PlayerControlsStyle theme={mainTheme}>
+      <PlayerControlsStyle>
         <div
           className='controls-element'
-          onClick={()=>props.onRewindClick()}
+          onClick={props.onRewindClick}
         >
           <MdFastRewind/>
         </div>
         <div
           className='controls-element play'
-          onClick={()=>props.onPlayClick()}
+          onClick={props.onPlayClick}
         >
           {(props.playingStatus === Sound.status.PLAYING) ? <MdPause/> : <MdPlayArrow/>}
         </div>
         <div
           className='controls-element'
-          onClick={()=>props.onForwardClick()}
+          onClick={props.onForwardClick}
         >
           <MdFastForward/>
         </div>
       </PlayerControlsStyle>
   )
+};
+
+PlayerControls.propTypes = {
+  playingStatus: PropTypes.string,
+  onPlayClick: PropTypes.func,
+  onForwardClick: PropTypes.func,
+  onRewindClick: PropTypes.func,
 };
 
 export default PlayerControls;

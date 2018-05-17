@@ -1,16 +1,8 @@
 /* global soundManager:false */
 import React from 'react';
-import PropTypes from "prop-types";
-import styled from 'styled-components';
 import Sound from 'react-sound';
-import { PlayerMenu, PlayerControls, SongInfo, PlayerSlider } from '../../components';
-
-const PlayerStyle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-content: space-between;
-  height: 100%;
-`;
+import { PlayerMenu, PlayerControls, SongInfo, PlayerSlider } from 'components';
+import PlayerStyle from './style';
 
 class Player extends React.Component {
 
@@ -100,40 +92,5 @@ class Player extends React.Component {
     );
   }
 }
-
-PlayerControls.propTypes = {
-  playingStatus: PropTypes.string,
-  onPlayClick: PropTypes.func,
-  onForwardClick: PropTypes.func,
-  onRewindClick: PropTypes.func,
-};
-
-SongInfo.propTypes = {
-  song: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    duration: PropTypes.number,
-    src: PropTypes.string,
-    artist: PropTypes.string,
-    album_cover: PropTypes.string,
-  })
-};
-
-PlayerSlider.propTypes = {
-  song: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    duration: PropTypes.number,
-    src: PropTypes.string,
-    artist: PropTypes.string,
-    album_cover: PropTypes.string,
-  }),
-  playingStatus: PropTypes.string,
-  songPosition: PropTypes.number,
-  onEndSong: PropTypes.func,
-  onPlaying: PropTypes.func,
-  getPercentPlayed: PropTypes.func,
-  onSlide: PropTypes.func,
-};
 
 export default Player;
