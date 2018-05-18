@@ -40,16 +40,4 @@ const withPlaylist = (WrappedComponent) =>
     }
   };
 
-withPlaylist.propTypes = {
-  playlist: PropTypes.arrayOf({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    duration: PropTypes.number,
-    src: PropTypes.string,
-    artist: PropTypes.string,
-    album_cover: PropTypes.string,
-    album_title: PropTypes.string,
-  }),
-};
-
 export default withPlaylist;

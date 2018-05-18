@@ -2,6 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import SongStyle from './style'
 
+const _propTypes = {
+  song: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    duration: PropTypes.number,
+    src: PropTypes.string,
+    artist: PropTypes.string,
+    album_cover: PropTypes.string,
+  })
+};
+
 const SongInfo = ({song}) => {
   return (
       <SongStyle>
@@ -18,15 +29,6 @@ const SongInfo = ({song}) => {
   )
 };
 
-SongInfo.propTypes = {
-  song: PropTypes.shape({
-    id: PropTypes.string,
-    title: PropTypes.string,
-    duration: PropTypes.number,
-    src: PropTypes.string,
-    artist: PropTypes.string,
-    album_cover: PropTypes.string,
-  })
-};
+SongInfo.propTypes = _propTypes;
 
 export default SongInfo;

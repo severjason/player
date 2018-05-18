@@ -4,6 +4,13 @@ import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/l
 import PropTypes from "prop-types";
 import PlayerControlsStyle from './style';
 
+const _propTypes = {
+  playingStatus: PropTypes.string,
+  onPlayClick: PropTypes.func,
+  onForwardClick: PropTypes.func,
+  onRewindClick: PropTypes.func,
+};
+
 const PlayerControls = (props) => {
   return (
       <PlayerControlsStyle>
@@ -29,11 +36,6 @@ const PlayerControls = (props) => {
   )
 };
 
-PlayerControls.propTypes = {
-  playingStatus: PropTypes.string,
-  onPlayClick: PropTypes.func,
-  onForwardClick: PropTypes.func,
-  onRewindClick: PropTypes.func,
-};
+PlayerControls.propTypes = _propTypes;
 
 export default PlayerControls;
