@@ -1,36 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
-import { mainTheme } from '../../../styles/themes';
+import PropTypes from 'prop-types';
+import SongStyle from './style'
 
-const SongStyle = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  .song-info-element {
-    width: 100%;
-    padding: .5rem .5rem 0 .5rem;
-    color: ${props => props.theme.secondaryTextColor};
-    font-size: .7rem;
-    text-align: center;
-    
-    img {
-      display: block;
-      max-height: ${props => props.theme.maxWidth};
-      margin: 0 auto;
-      border-radius: 3px;
-      box-shadow: 0 0 20px 3px rgba(0,0,0,0.66);
-    }
-  }
-  .song-title {
-      padding-top: 1rem;
-      color: ${props => props.theme.mainTextColor};
-      font-weight: bold;
-      font-size: 1.1rem;
-    }
-`;
+const _propTypes = {
+  song: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    duration: PropTypes.number,
+    src: PropTypes.string,
+    artist: PropTypes.string,
+    album_cover: PropTypes.string,
+  })
+};
 
 const SongInfo = ({song}) => {
   return (
-      <SongStyle theme={mainTheme}>
+      <SongStyle>
         <div className="song-info-element">
           <img src={song.album_cover} alt={song.title}/>
         </div>
@@ -43,5 +28,7 @@ const SongInfo = ({song}) => {
       </SongStyle>
   )
 };
+
+SongInfo.propTypes = _propTypes;
 
 export default SongInfo;

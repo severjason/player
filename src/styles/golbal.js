@@ -1,6 +1,17 @@
-import styled from "styled-components";
+import { injectGlobal } from 'styled-components';
+import styled from 'styled-components';
 
-const HomeStyle = styled.div`
+injectGlobal`
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Lato', sans-serif;
+    font-size: 14px;
+}
+
+`;
+
+export const GlobalStyle = styled.div`
   display: flex;
   position: absolute;
   align-items: center;
@@ -20,11 +31,21 @@ const HomeStyle = styled.div`
     box-shadow: 0 0 20px 3px rgba(34,47,62,0.66);
   }
   
+  a {
+    color: ${props => props.theme.mainTextColor};
+    text-decoration: none;
+    
+    &:hover, &.active {
+      color: ${props => props.theme.secondaryColor};
+    }
+  }
+  img {
+    max-width: 100%;
+  }
+  
   @media all and (max-width: 22rem) {
     .container {
       width: 100%;
     }
   }
 `;
-
-export default HomeStyle;
