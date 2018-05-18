@@ -67,23 +67,26 @@ class Player extends React.Component {
   };
 
   render() {
+
+    const {currentSong, playingStatus, position} = this.state;
+
     return (
       <PlayerStyle>
         <PlayerMenu/>
         <SongInfo
-          song={this.state.currentSong}
+          song={currentSong}
         />
         <PlayerSlider
-          playingStatus={this.state.playingStatus}
-          song={this.state.currentSong}
-          songPosition={this.state.position}
-          songDuration={this.state.currentSong.duration}
+          playingStatus={playingStatus}
+          song={currentSong}
+          songPosition={position}
+          songDuration={currentSong.duration}
           onEndSong={this.handleForwardClick}
           onPlaying={this.handlePlaying}
           onSlide={this.handleSlide}
         />
         <PlayerControls
-          playingStatus={this.state.playingStatus}
+          playingStatus={playingStatus}
           onPlayClick={this.handlePlayClick}
           onForwardClick={this.handleForwardClick}
           onRewindClick={this.handleRewindClick}
