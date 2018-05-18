@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from "prop-types";
 
 const withPlaylist = (WrappedComponent) =>
    class extends React.Component {
