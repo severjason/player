@@ -5,6 +5,7 @@ const PlayerControlsStyle = flexWidth100.extend`
     padding: 1rem;
     font-size: 2rem;
     line-height: 4rem;
+    transition: font-size ${props => props.theme.baseTransition};
     :hover {
       color: ${props => props.theme.secondaryColor};
       cursor: pointer;
@@ -12,6 +13,7 @@ const PlayerControlsStyle = flexWidth100.extend`
   }
   .play {
     font-size: 4rem;
+    transition: font-size ${props => props.theme.baseTransition};
   }
   
   &.minimized {
@@ -26,7 +28,7 @@ const PlayerControlsStyle = flexWidth100.extend`
       padding: .2rem;
       font-size: 1.5rem;
       line-height: 2rem;
-      transition: font-size .2s ;
+      transition: font-size ${props => props.theme.baseTransition};
       :hover {
         color: ${props => props.theme.secondaryColor};
         cursor: pointer;
@@ -34,7 +36,7 @@ const PlayerControlsStyle = flexWidth100.extend`
     }
     .play {
       font-size: 2rem;
-      transition: font-size ${props => props.theme.baseTransition} ;
+      transition: font-size ${props => props.theme.baseTransition};
     }
   }
 `;
