@@ -4,11 +4,19 @@ import PropTypes from "prop-types";
 import * as helpers from "helpers";
 import SliderComponentStyle from './style';
 
-const SliderComponent = ({songDuration, songPosition, onSlide, ...rest}) => {
+const _defaultProps = {
+  min: 0,
+  max: 1,
+  step: 0.01
+};
 
-  const sliderMinValue = 0;
-  const sliderMaxValue = 1;
-  const sliderStep = 0.01;
+const _propTypes = {
+  songPosition: PropTypes.number,
+  songDuration: PropTypes.number,
+  onSlide: PropTypes.func,
+};
+
+const SliderComponent = ({songDuration, songPosition, onSlide, ...rest}) => {
 
   const getPercentPlayed = (duration, position) => (!duration || !position) ? 0 : position / (duration * 1000);
 
@@ -16,9 +24,6 @@ const SliderComponent = ({songDuration, songPosition, onSlide, ...rest}) => {
     <SliderComponentStyle>
       <div className="slider">
         <Slider
-          min={sliderMinValue}
-          max={sliderMaxValue}
-          step={sliderStep}
           value={getPercentPlayed(songDuration, songPosition)}
           onChange={onSlide}
           snapDragDisabled={true}
@@ -37,10 +42,7 @@ const SliderComponent = ({songDuration, songPosition, onSlide, ...rest}) => {
   );
 };
 
-SliderComponent.propTypes = {
-  songPosition: PropTypes.number,
-  songDuration: PropTypes.number,
-  onSlide: PropTypes.func,
-};
+SliderComponent.defaultProps = _defaultProps;
+SliderComponent.propTypes = _propTypes;
 
 export default SliderComponent;
