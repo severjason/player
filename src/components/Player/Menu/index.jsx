@@ -1,15 +1,28 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import { MdQueueMusic, MdSearch } from 'react-icons/lib/md'
 import { Link } from 'react-router-dom';
 import MenuStyle from './style';
 
-const PlayerMenu = () => {
+const _propTypes = {
+  playlistOpened: PropTypes.bool,
+  togglePlaylist: PropTypes.func,
+};
+
+const PlayerMenu = (props) => {
   return (
     <MenuStyle justifyContent="space-between">
-      <Link to={`/player`}><MdQueueMusic/></Link>
+      <div
+        className={`menu-item ${props.playlistOpened ? 'active' : ''}`}
+        onClick={props.togglePlaylist}
+      >
+        <MdQueueMusic/>
+      </div>
       <Link to={`/search`}><MdSearch/></Link>
     </MenuStyle>
   )
 };
+
+PlayerMenu.propTypes = _propTypes;
 
 export default PlayerMenu;

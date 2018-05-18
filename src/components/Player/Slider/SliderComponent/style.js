@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
-const SliderComponentStyle = styled.div`    
+const SliderComponentStyle = styled.div`
+    padding: 5px;   
     .slider {
       margin: 1rem 0 .5rem 0;
       .rangeslider {

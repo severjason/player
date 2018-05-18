@@ -5,9 +5,14 @@ const MenuStyle = flexWidth100.extend`
   line-height: 2rem;
   padding: .5rem;
   
-  a {
+  a, .menu-item {
     font-size: 1.5rem;
     display: block;
+    
+    &:hover, &.active {
+      cursor: pointer;
+      color: ${props => props.theme.secondaryColor};
+    }
   }
 `;
 

@@ -6,6 +6,8 @@ import PlayerControlsStyle from './style';
 
 const _propTypes = {
   playingStatus: PropTypes.string,
+  currentSongId: PropTypes.string,
+  minimized: PropTypes.bool,
   onPlayClick: PropTypes.func,
   onForwardClick: PropTypes.func,
   onRewindClick: PropTypes.func,
@@ -13,7 +15,7 @@ const _propTypes = {
 
 const PlayerControls = (props) => {
   return (
-      <PlayerControlsStyle>
+      <PlayerControlsStyle className={props.minimized ? 'minimized' : ''}>
         <div
           className='controls-element'
           onClick={props.onRewindClick}
@@ -22,7 +24,7 @@ const PlayerControls = (props) => {
         </div>
         <div
           className='controls-element play'
-          onClick={props.onPlayClick}
+          onClick={() => props.onPlayClick(props.currentSongId)}
         >
           {(props.playingStatus === Sound.status.PLAYING) ? <MdPause/> : <MdPlayArrow/>}
         </div>

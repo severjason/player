@@ -11,7 +11,7 @@ const SongStyle = flexWidth100.extend`
     
     img {
       display: block;
-      max-height: ${props => props.theme.maxWidth};
+      max-height: ${props => props.theme.maxSongImgWidth};
       margin: 0 auto;
       border-radius: 3px;
       box-shadow: 0 0 20px 3px rgba(0,0,0,0.66);
@@ -22,6 +22,7 @@ const SongStyle = flexWidth100.extend`
       color: ${props => props.theme.mainTextColor};
       font-weight: bold;
       font-size: 1.1rem;
+      word-wrap: break-word;
     }
 `;
 
