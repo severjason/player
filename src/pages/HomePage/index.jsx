@@ -1,6 +1,8 @@
-import withPlaylist from 'containers/withPlaylist';
-import Player from 'containers/Player';
+import React from 'react';
+import { Player, withPlaylist } from 'containers';
 
-const HomePage = withPlaylist(Player);
+const HP = withPlaylist(Player);
+
+const HomePage = () => <HP/>;
 
 export default HomePage;

@@ -1,6 +1,8 @@
-import withPlaylist from 'containers/withPlaylist';
-import Search from 'containers/Search';
+import React from 'react';
+import { withPlaylist, Search } from 'containers';
 
-const SearchPage = withPlaylist(Search);
+const SP = withPlaylist(Search);
+
+const SearchPage = () => <SP/>;
 
 export default SearchPage;

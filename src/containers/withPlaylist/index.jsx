@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-export default function withPlaylist (Component) {
-  return class extends React.Component {
+const withPlaylist = (WrappedComponent) =>
+   class extends React.Component {
     state = {
       playlist: [
         {
@@ -36,10 +36,9 @@ export default function withPlaylist (Component) {
     };
 
     render() {
-      return <Component {...this.props} playlist={this.state.playlist}/>;
+      return <WrappedComponent {...this.props} playlist={this.state.playlist}/>;
     }
   };
-}
 
 withPlaylist.propTypes = {
   playlist: PropTypes.arrayOf({
@@ -52,3 +51,5 @@ withPlaylist.propTypes = {
     album_title: PropTypes.string,
   }),
 };
+
+export default withPlaylist;

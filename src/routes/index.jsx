@@ -4,11 +4,13 @@ import { SearchPage, HomePage } from 'pages';
 
 const Routes = () => {
   return (
-    <Switch>
-      <Route path="/player" component={HomePage}/>
-      <Route path="/search" component={SearchPage}/>
-      <Route path="*" render={() => <Redirect to="/player"/>}/>
-    </Switch>
+    <div className='container'>
+      <Switch>
+        <Route path="/player" component={HomePage}/>
+        <Route path="/search" component={SearchPage}/>
+        <Route path="*" render={() => <Redirect to="/player"/>}/>
+      </Switch>
+    </div>
   )
 };
 

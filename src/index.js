@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import  { ThemeProvider } from 'styled-components';
 import { mainTheme, GlobalStyle } from 'styles';
-import { App } from 'containers';
+import Routes from 'routes';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(
   <BrowserRouter>
     <ThemeProvider theme={mainTheme}>
       <GlobalStyle>
-        <App/>
+        <Routes/>
       </GlobalStyle>
     </ThemeProvider>
   </BrowserRouter>,
