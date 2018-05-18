@@ -1,6 +1,6 @@
-import React from 'react';
-import { Search, withPlaylist } from 'containers';
+import withPlaylist from 'containers/withPlaylist';
+import Search from 'containers/Search';
 
-const SearchPage = () => withPlaylist(Search);
+const SearchPage = withPlaylist(Search);
 
 export default SearchPage;
