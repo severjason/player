@@ -1,12 +1,12 @@
 /* global soundManager:false */
 import React from 'react';
 import Sound from 'react-sound';
-import { PlayerMenu, PlayerControls, SongInfo, PlayerSlider } from 'components';
+import { PlayerMenu, PlayerControls, PlayerSlider, Playlist } from 'components';
 import PlayerStyle from './style';
 
 class Player extends React.Component {
 
-  componentDidMount () {
+  componentDidMount() {
     soundManager.setup({debugMode: false});
   }
 
@@ -14,6 +14,7 @@ class Player extends React.Component {
     playingStatus: Sound.status.STOPPED,
     currentSong: this.props.playlist[0],
     position: 0,
+    playlistOpened: true,
   };
 
   resetStatus = () => {
@@ -24,22 +25,21 @@ class Player extends React.Component {
     }
   };
 
-  getPercentPlayed = () => {
-    const total = this.state.currentSong.duration * 1000;
-    const current = this.state.position;
-    return (!total || !current) ? 0 : current / total;
-  };
-
   handlePlaying = (sound) => {
     this.setState({position: sound.position});
   };
 
-  handlePlayClick = () => {
-    this.setState({
-      playingStatus:
-        (this.state.playingStatus === Sound.status.PLAYING)
-          ? Sound.status.PAUSED
-          : Sound.status.PLAYING});
+  handlePlayClick = (id) => {
+    if (id === this.state.currentSong.id) {
+      this.setState({
+        playingStatus:
+          (this.state.playingStatus === Sound.status.PLAYING)
+            ? Sound.status.PAUSED
+            : Sound.status.PLAYING
+      });
+    } else {
+      this.setState({position: 0})
+    }
   };
 
   handleSlide = (value) => {
@@ -66,31 +66,52 @@ class Player extends React.Component {
     this.resetStatus();
   };
 
+  togglePlaylist = () => {
+    this.setState({playlistOpened: !this.state.playlistOpened})
+  };
+
+  setCurrentSong = (songId) => {
+    const index = this.props.playlist.findIndex((song) => song.id === songId);
+    this.setState({currentSong: this.props.playlist[index]})
+  };
+
   render() {
 
-    const {currentSong, playingStatus, position} = this.state;
+    const {currentSong, playingStatus, position, playlistOpened} = this.state;
 
     return (
-      <PlayerStyle>
-        <PlayerMenu/>
-        <SongInfo
-          song={currentSong}
+      <PlayerStyle className={`${this.state.playlistOpened ? 'minimized' : ''} player`}>
+        <PlayerMenu
+          playlistOpened={playlistOpened}
+          togglePlaylist={this.togglePlaylist}
         />
-        <PlayerSlider
-          playingStatus={playingStatus}
-          song={currentSong}
-          songPosition={position}
-          songDuration={currentSong.duration}
-          onEndSong={this.handleForwardClick}
-          onPlaying={this.handlePlaying}
-          onSlide={this.handleSlide}
-        />
-        <PlayerControls
-          playingStatus={playingStatus}
-          onPlayClick={this.handlePlayClick}
-          onForwardClick={this.handleForwardClick}
-          onRewindClick={this.handleRewindClick}
-        />
+        {(playlistOpened)
+          ? <Playlist
+            minimized={playlistOpened}
+            playlist={this.props.playlist}
+            currentSongId={currentSong.id}
+            onPlayClick={this.handlePlayClick}
+            setSong={this.setCurrentSong}
+          />
+          : null}
+          <PlayerSlider
+            minimized={playlistOpened}
+            playingStatus={playingStatus}
+            song={currentSong}
+            songPosition={position}
+            songDuration={currentSong.duration}
+            onEndSong={this.handleForwardClick}
+            onPlaying={this.handlePlaying}
+            onSlide={this.handleSlide}
+          />
+          <PlayerControls
+            minimized={playlistOpened}
+            playingStatus={playingStatus}
+            currentSongId={currentSong.id}
+            onPlayClick={this.handlePlayClick}
+            onForwardClick={this.handleForwardClick}
+            onRewindClick={this.handleRewindClick}
+          />
       </PlayerStyle>
     );
   }

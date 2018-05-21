@@ -8,5 +8,5 @@ export function getTimes(value) {
   const minutes = Math.floor(value / 60);
   const seconds = Math.floor(value - (minutes * 60));
 
-  return `${formatTime(minutes)}:${formatTime(seconds)}`;
+  return `${minutes}:${formatTime(seconds)}`;
 }

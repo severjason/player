@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 
-const SliderComponentStyle = styled.div`    
+const SliderComponentStyle = styled.div`
+		width: 100%;
+    padding: 5px 0;   
     .slider {
-      margin: 1rem 0 .5rem 0;
+      margin: 1rem 0;
       .rangeslider {
         display: block;
         position: relative;

@@ -7,7 +7,15 @@ injectGlobal`
     padding: 0;
     font-family: 'Lato', sans-serif;
     font-size: 14px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+       -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
 }
+  ::-webkit-scrollbar { 
+    display: none; 
+  }
 
 `;
 
@@ -23,7 +31,6 @@ export const GlobalStyle = styled.div`
     width: 22rem;
     height: 35rem;
     margin: 0 auto;
-    padding: 5px;
     overflow: auto;
     background-color: ${props => props.theme.mainColor};
     color: ${props => props.theme.mainTextColor};    
