@@ -6,31 +6,39 @@ import SliderComponent from './SliderComponent';
 
 const _propTypes = {
 	song: PropTypes.shape({
-		id: PropTypes.string,
-		title: PropTypes.string,
-		duration: PropTypes.number,
-		src: PropTypes.string,
-		artist: PropTypes.string,
-		album_cover: PropTypes.string,
+		id: PropTypes.number.isRequired,
+		title: PropTypes.string.isRequired,
+		duration: PropTypes.number.isRequired,
+		src: PropTypes.string.isRequired,
+		artist: PropTypes.string.isRequired,
+		album_cover: PropTypes.string.isRequired,
 	}),
-	playingStatus: PropTypes.string,
-	songPosition: PropTypes.number,
+	playingStatus: PropTypes.string.isRequired,
+	songPosition: PropTypes.number.isRequired,
 	minimized: PropTypes.bool,
-	onEndSong: PropTypes.func,
-	onPlaying: PropTypes.func,
-	onSlide: PropTypes.func,
+	onEndSong: PropTypes.func.isRequired,
+	onPlaying: PropTypes.func.isRequired,
+	onSlide: PropTypes.func.isRequired,
 };
 
 const PlayerSlider = (props) => {
-	const  { song } = props;
+	const  {
+		song,
+		minimized,
+    playingStatus,
+    songPosition,
+    onEndSong,
+    onPlaying,
+    onSlide,
+	} = props;
 	return (
-		<SliderStyle className={props.minimized ? 'minimized' : ''}>
+		<SliderStyle className={minimized ? 'minimized' : ''}>
 			<Sound
-				url={props.song.src}
-				playStatus={props.playingStatus}
-				position={props.songPosition}
-				onFinishedPlaying={props.onEndSong}
-				onPlaying={props.onPlaying}
+				url={song.src}
+				playStatus={playingStatus}
+				position={songPosition}
+				onFinishedPlaying={onEndSong}
+				onPlaying={onPlaying}
 				volume={10}
 			/>
 			<div className='slider-element album-cover'>
@@ -46,9 +54,9 @@ const PlayerSlider = (props) => {
 					<strong>{song.artist}</strong> - {song.album_title}
 				</div>
 				<SliderComponent
-					songPosition={props.songPosition}
-					songDuration={props.song.duration}
-					onSlide={props.onSlide}
+					songPosition={songPosition}
+					songDuration={song.duration}
+					onSlide={onSlide}
 					{...props}
 				/>
 			</div>

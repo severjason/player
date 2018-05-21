@@ -11,9 +11,9 @@ const _defaultProps = {
 };
 
 const _propTypes = {
-  songPosition: PropTypes.number,
-  songDuration: PropTypes.number,
-  onSlide: PropTypes.func,
+  songPosition: PropTypes.number.isRequired,
+  songDuration: PropTypes.number.isRequired,
+  onSlide: PropTypes.func.isRequired,
 };
 
 const SliderComponent = ({songDuration, songPosition, onSlide, ...rest}) => {

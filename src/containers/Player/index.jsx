@@ -14,7 +14,7 @@ class Player extends React.Component {
     playingStatus: Sound.status.STOPPED,
     currentSong: this.props.playlist[0],
     position: 0,
-    playlistOpened: true,
+    playlistOpened: false,
   };
 
   resetStatus = () => {

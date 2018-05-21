@@ -5,7 +5,7 @@ const withPlaylist = (WrappedComponent) =>
     state = {
       playlist: [
         {
-          id: "136332802",
+          id: 136332802,
           title: "Moth Into Flame",
           duration: 30.7,
           src: "https://cdns-preview-3.dzcdn.net/stream/c-37617212312b608120b650bdefd2441a-4.mp3",
@@ -14,7 +14,7 @@ const withPlaylist = (WrappedComponent) =>
           album_title: "Hardwired…To Self-Destruct (Deluxe)"
         },
         {
-          id: "57866851",
+          id: 57866851,
           title: "Already",
           duration: 30.7,
           src: "https://cdns-preview-2.dzcdn.net/stream/c-2cbd99077d028e6f4eed2c00ba47943d-8.mp3",
@@ -23,7 +23,7 @@ const withPlaylist = (WrappedComponent) =>
           album_title: "Undisputed",
         },
         {
-          id: "422496562",
+          id: 422496562,
           title: "I See You",
           duration: 30.7,
           src: "https://cdns-preview-9.dzcdn.net/stream/c-95a21e76fa3387433edb4090f9b9d04b-4.mp3",
@@ -34,8 +34,19 @@ const withPlaylist = (WrappedComponent) =>
       ]
     };
 
+    checkIfSongInPlaylist = (songId) => !!this.state.playlist.find((song) => song.id === songId);
+
+    addSong = ({id, title, duration, src, artist, album_cover, album_title}) => {
+      if (this.checkIfSongInPlaylist(id)) {
+      }
+    };
+
     render() {
-      return <WrappedComponent {...this.props} playlist={this.state.playlist}/>;
+      return <WrappedComponent
+        {...this.props}
+        playlist={this.state.playlist}
+        checkIfSongInPlaylist={this.checkIfSongInPlaylist}
+      />;
     }
   };
 
