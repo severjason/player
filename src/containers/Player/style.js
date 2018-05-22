@@ -1,4 +1,4 @@
-import { flexWidth100 } from 'styles'
+import { flexWidth100 } from 'styles';
 
 const PlayerStyle = flexWidth100.extend`
   position: relative;

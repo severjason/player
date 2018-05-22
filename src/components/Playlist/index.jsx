@@ -6,22 +6,27 @@ import PlaylistSong from './Song';
 const _propTypes = {
   playlist: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string,
-      title: PropTypes.string,
-      duration: PropTypes.number,
-      src: PropTypes.string,
-      artist: PropTypes.string,
-      album_cover: PropTypes.string,
-      album_title: PropTypes.string
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      duration: PropTypes.number.isRequired,
+      preview: PropTypes.string.isRequired,
+      artist: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }),
+      album: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        cover_big:PropTypes.string.isRequired,
+      }),
     })
   ),
-  currentSongId: PropTypes.string,
+  currentSongId: PropTypes.number.isRequired,
   minimized: PropTypes.bool,
-  onPlayClick: PropTypes.func,
-  setSong: PropTypes.func,
+  onPlayClick: PropTypes.func.isRequired,
+  setSong: PropTypes.func.isRequired,
+  removeSong: PropTypes.func.isRequired,
 };
 
-const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized}) => {
+const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, removeSong}) => {
 
   const songs = playlist.map((song, index) => {
     return (
@@ -31,6 +36,7 @@ const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized}) =>
           currentSongId={currentSongId}
           onPlayClick={onPlayClick}
           setSong={setSong}
+          removeSong={removeSong}
           {...song}
         />
     )
@@ -38,9 +44,7 @@ const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized}) =>
 
   return (
     <PlaylistStyle className={minimized ? 'minimized' : ''}>
-      {songs}
-      {songs}
-      {songs}
+      {playlist.length ? songs : <div className="info">Playlist is empty</div>}
     </PlaylistStyle>
   )
 };

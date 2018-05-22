@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 import MenuStyle from './style';
 
 const _propTypes = {
-  playlistOpened: PropTypes.bool,
-  togglePlaylist: PropTypes.func,
+  playlistOpened: PropTypes.bool.isRequired,
+  togglePlaylist: PropTypes.func.isRequired,
 };
 
 const PlayerMenu = (props) => {

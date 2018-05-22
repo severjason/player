@@ -1,16 +1,16 @@
 import React from 'react';
 import Sound from 'react-sound';
-import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/lib/md'
+import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/lib/md';
 import PropTypes from "prop-types";
 import PlayerControlsStyle from './style';
 
 const _propTypes = {
-  playingStatus: PropTypes.string,
-  currentSongId: PropTypes.string,
+  playingStatus: PropTypes.string.isRequired,
+  currentSongId: PropTypes.number.isRequired,
   minimized: PropTypes.bool,
-  onPlayClick: PropTypes.func,
-  onForwardClick: PropTypes.func,
-  onRewindClick: PropTypes.func,
+  onPlayClick: PropTypes.func.isRequired,
+  onForwardClick: PropTypes.func.isRequired,
+  onRewindClick: PropTypes.func.isRequired,
 };
 
 const PlayerControls = (props) => {
