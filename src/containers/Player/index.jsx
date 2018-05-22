@@ -6,16 +6,16 @@ import PlayerStyle from './style';
 
 class Player extends React.Component {
 
-  componentDidMount() {
-    soundManager.setup({debugMode: false});
-  }
-
   state = {
     playingStatus: Sound.status.STOPPED,
     currentSong: this.props.playlist[0],
     position: 0,
-    playlistOpened: false,
+    playlistOpened: true,
   };
+
+  componentDidMount() {
+    soundManager.setup({debugMode: false});
+  }
 
   resetStatus = () => {
     if (this.state.playingStatus === Sound.status.PLAYING) {
@@ -30,15 +30,17 @@ class Player extends React.Component {
   };
 
   handlePlayClick = (id) => {
-    if (id === this.state.currentSong.id) {
-      this.setState({
-        playingStatus:
-          (this.state.playingStatus === Sound.status.PLAYING)
-            ? Sound.status.PAUSED
-            : Sound.status.PLAYING
-      });
-    } else {
-      this.setState({position: 0})
+    if (this.props.playlist.length) {
+      if (id === this.state.currentSong.id) {
+        this.setState({
+          playingStatus:
+            (this.state.playingStatus === Sound.status.PLAYING)
+              ? Sound.status.PAUSED
+              : Sound.status.PLAYING
+        });
+      } else {
+        this.setState({position: 0})
+      }
     }
   };
 
@@ -48,22 +50,26 @@ class Player extends React.Component {
 
   handleForwardClick = () => {
     const nextSongIndex = this.props.playlist.indexOf(this.state.currentSong) + 1;
-    if (nextSongIndex > this.props.playlist.length - 1) {
-      this.setState({currentSong: this.props.playlist[0]});
-    } else {
-      this.setState({currentSong: this.props.playlist[nextSongIndex]});
+    if (this.props.playlist.length) {
+      if (nextSongIndex > this.props.playlist.length - 1) {
+        this.setState({currentSong: this.props.playlist[0]});
+      } else {
+        this.setState({currentSong: this.props.playlist[nextSongIndex]});
+      }
+      this.resetStatus();
     }
-    this.resetStatus();
   };
 
   handleRewindClick = () => {
     const previousSongIndex = this.props.playlist.indexOf(this.state.currentSong) - 1;
-    if (previousSongIndex < 0) {
-      this.setState({currentSong: this.props.playlist[this.props.playlist.length - 1]});
-    } else {
-      this.setState({currentSong: this.props.playlist[previousSongIndex]});
+    if (this.props.playlist.length) {
+      if (previousSongIndex < 0) {
+        this.setState({currentSong: this.props.playlist[this.props.playlist.length - 1]});
+      } else {
+        this.setState({currentSong: this.props.playlist[previousSongIndex]});
+      }
+      this.resetStatus();
     }
-    this.resetStatus();
   };
 
   togglePlaylist = () => {
@@ -75,9 +81,17 @@ class Player extends React.Component {
     this.setState({currentSong: this.props.playlist[index]})
   };
 
-  render() {
+  removeSong = (songId) => {
+    this.props.removeSong(songId);
+    const index = this.props.playlist.findIndex((song) => song.id === songId);
+    const nextIndex = (this.props.playlist.length <= index + 1) ? 0 : index + 1;
+    this.setCurrentSong(this.props.playlist[nextIndex].id);
+  };
 
+  render() {
     const {currentSong, playingStatus, position, playlistOpened} = this.state;
+
+    const playlistLength = this.props.playlist.length;
 
     return (
       <PlayerStyle className={`${this.state.playlistOpened ? 'minimized' : ''} player`}>
@@ -92,9 +106,12 @@ class Player extends React.Component {
             currentSongId={currentSong.id}
             onPlayClick={this.handlePlayClick}
             setSong={this.setCurrentSong}
+            removeSong={this.removeSong}
           />
           : null}
-          <PlayerSlider
+
+        {(playlistLength)
+          ? <PlayerSlider
             minimized={playlistOpened}
             playingStatus={playingStatus}
             song={currentSong}
@@ -104,6 +121,8 @@ class Player extends React.Component {
             onPlaying={this.handlePlaying}
             onSlide={this.handleSlide}
           />
+          : null
+        }
           <PlayerControls
             minimized={playlistOpened}
             playingStatus={playingStatus}

@@ -18,6 +18,10 @@ const SearchStyle = flexWidth100.extend`
     line-height: 2rem;
     text-align: right;
   }
+  .no-results {
+    padding-top: .5rem;
+    text-align: center;
+  }
   .input {
     width: 90%;
     height: 2rem;

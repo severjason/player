@@ -9,9 +9,14 @@ const _propTypes = {
 		id: PropTypes.number.isRequired,
 		title: PropTypes.string.isRequired,
 		duration: PropTypes.number.isRequired,
-		src: PropTypes.string.isRequired,
-		artist: PropTypes.string.isRequired,
-		album_cover: PropTypes.string.isRequired,
+    preview: PropTypes.string.isRequired,
+    artist: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+    }),
+    album: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      cover_big:PropTypes.string.isRequired,
+    }),
 	}),
 	playingStatus: PropTypes.string.isRequired,
 	songPosition: PropTypes.number.isRequired,
@@ -34,7 +39,7 @@ const PlayerSlider = (props) => {
 	return (
 		<SliderStyle className={minimized ? 'minimized' : ''}>
 			<Sound
-				url={song.src}
+				url={song.preview}
 				playStatus={playingStatus}
 				position={songPosition}
 				onFinishedPlaying={onEndSong}
@@ -43,7 +48,7 @@ const PlayerSlider = (props) => {
 			/>
 			<div className='slider-element album-cover'>
 				<div className="song-info-element">
-					<img src={song.album_cover} alt={song.title}/>
+					<img src={song.album.cover_big} alt={song.title}/>
 				</div>
 			</div>
 			<div className='slider-element'>
@@ -51,7 +56,7 @@ const PlayerSlider = (props) => {
 					{song.title.toUpperCase()}
 				</div>
 				<div className="song-info-element">
-					<strong>{song.artist}</strong> - {song.album_title}
+					<strong>{song.artist.name}</strong> - {song.album.title}
 				</div>
 				<SliderComponent
 					songPosition={songPosition}

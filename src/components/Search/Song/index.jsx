@@ -31,7 +31,7 @@ const SearchedSong = (props) => {
         </div>
         <div className="item title">
           <div className="title-element">
-            {props.title} - {props.artist.name}
+            <strong>{props.title}</strong> - {props.artist.name}
           </div>
           <div className="title-element small">
             {helpers.getTimes(props.duration)}
