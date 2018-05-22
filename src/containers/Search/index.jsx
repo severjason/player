@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import * as api from 'service/deezerAPI';
 import { SearchResults, Loader } from 'components';
 import debounce from 'lodash/debounce';
+import { connect } from 'react-redux';
 
 class Search extends React.Component {
 
@@ -52,6 +53,8 @@ class Search extends React.Component {
     console.log(error);
   };
 
+  checkIfSongInPlaylist = (songId) => !!this.props.playlist.find((song) => song.id === songId);
+
   findWithDebounce = debounce(api.findSong, 500, { 'maxWait': 1000 });
 
   handleInput = (e) => {
@@ -90,7 +93,7 @@ class Search extends React.Component {
         {this.showResults()
           ? <SearchResults
             results={this.state.results}
-            checkIfSongInPlaylist={this.props.checkIfSongInPlaylist}
+            checkIfSongInPlaylist={this.checkIfSongInPlaylist}
             toggleSong={this.toggleSong}
           />
           : null}
@@ -99,4 +102,9 @@ class Search extends React.Component {
   }
 }
 
-export default Search;
+export default connect(
+  state => ({
+    playlist: state.playlist.songs,
+  }),
+  null
+)(Search);

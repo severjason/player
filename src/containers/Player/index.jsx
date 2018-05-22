@@ -3,14 +3,15 @@ import React from 'react';
 import Sound from 'react-sound';
 import { PlayerMenu, PlayerControls, PlayerSlider, Playlist } from 'components';
 import PlayerStyle from './style';
+import { connect } from 'react-redux';
 
 class Player extends React.Component {
 
   state = {
-    playingStatus: Sound.status.STOPPED,
+    playingStatus: this.props.playingStatus,
     currentSong: this.props.playlist[0],
-    position: 0,
-    playlistOpened: false,
+    position: this.props.songPosition,
+    playlistOpened: this.props.playlistOpened,
   };
 
   componentDidMount() {
@@ -136,4 +137,12 @@ class Player extends React.Component {
   }
 }
 
-export default Player;
+export default connect(
+  state => ({
+    playlist: state.playlist.songs,
+    playlistOpened: state.playlist.isOpened,
+    playingStatus: state.currentSong.status,
+    songPosition: state.currentSong.position,
+  }),
+  null
+)(Player);
