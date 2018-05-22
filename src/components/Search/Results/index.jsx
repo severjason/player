@@ -26,7 +26,7 @@ const SearchResults = ({results, checkIfSongInPlaylist, toggleSong}) =>
   results.map((song, index) => {
     return (
       <SearchedSong
-        key={index}
+        key={song.id}
         index={index}
         checkIfSongInPlaylist={checkIfSongInPlaylist}
         toggleSong={toggleSong}

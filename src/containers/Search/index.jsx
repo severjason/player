@@ -4,6 +4,7 @@ import { MdClear} from 'react-icons/lib/md';
 import { Link } from 'react-router-dom';
 import * as api from 'service/deezerAPI';
 import { SearchResults, Loader } from 'components';
+import debounce from 'lodash/debounce';
 
 class Search extends React.Component {
 
@@ -17,6 +18,10 @@ class Search extends React.Component {
     }
   };
 
+  componentWillUnmount() {
+    this.findWithDebounce.cancel();
+  }
+
   toggleSong = (songIndex) => {
     const newSong = this.state.results[songIndex];
     (!this.props.checkIfSongInPlaylist(newSong.id)) ? this.props.addSong(newSong) : this.props.removeSong(newSong.id);
@@ -27,7 +32,40 @@ class Search extends React.Component {
   };
 
   showResults = () => {
-    return !this.state.isLoading && this.state.results.length > 0 && !this.state.error.isError;
+    return !this.state.isLoading && this.state.results.length > 0 && !this.state.error.isError && this.state.inputValue;
+  };
+
+  handleSuccessSearch = (json) => {
+    this.setState({
+      isLoading: false,
+      results: json.data
+    });
+  };
+
+  handleErrorSearch = (error) => {
+    this.setState({
+      isLoading: false,
+      error: {
+        isError: true,
+        data: error,
+      }});
+    console.log(error);
+  };
+
+  findWithDebounce = debounce(api.findSong, 500, { 'maxWait': 1000 });
+
+  handleInput = (e) => {
+    this.setState({
+      inputValue: e.target.value,
+      isLoading: !!e.target.value,
+      error: {
+        isError: false,
+        data: {}
+      }
+    });
+    if (this.state.inputValue) {
+      this.findWithDebounce(this.state.inputValue, this.handleSuccessSearch, this.handleErrorSearch);
+    }
   };
 
   render() {
@@ -38,47 +76,7 @@ class Search extends React.Component {
             value={this.state.inputValue}
             className="input"
             placeholder="track name..."
-            onChange={(e) => {
-              this.setState({
-                inputValue: e.target.value,
-                isLoading: !!e.target.value,
-                error: {
-                  isError: false,
-                  data: {}
-                }
-              });
-            }}
-            onKeyUp={() => {
-              if (this.state.inputValue) {
-                api.findSong(this.state.inputValue)
-                  .then(results => results.json())
-                  .then(json => {
-                    if (json.error) {
-                      this.setState({
-                        isLoading: false,
-                        error: {
-                          isError: true,
-                          data: json.error,
-                        }});
-                      console.log(json.error)
-                    } else {
-                      this.setState({
-                        isLoading: false,
-                        results: json.data
-                      });
-                    }
-                  })
-                  .catch((error) => {
-                    this.setState({
-                      isLoading: false,
-                      error: {
-                        isError: true,
-                        data: error,
-                      }});
-                    console.log(error);
-                  });
-              }
-            }}
+            onChange={this.handleInput}
           />
           <Link to={`/`} className="close-link"><MdClear/></Link>
         </div>

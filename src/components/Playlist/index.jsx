@@ -31,7 +31,7 @@ const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, rem
   const songs = playlist.map((song, index) => {
     return (
         <PlaylistSong
-          key={index}
+          key={song.id}
           index={index + 1}
           currentSongId={currentSongId}
           onPlayClick={onPlayClick}
