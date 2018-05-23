@@ -19,6 +19,7 @@ export const songStyle = styled.div`
       border-radius: 2px;
       background-color: ${props => props.theme.mainColor};
       box-shadow: 0 0 10px 1px rgba(0,0,0,0.3);
+      text-align: center;
       
       :hover {
         cursor: pointer;

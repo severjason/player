@@ -1,6 +1,7 @@
 import { flexWidth100 } from 'styles';
 
 const PlayerControlsStyle = flexWidth100.extend` 
+  height: 20%;
   .controls-element {
     padding: 1rem;
     font-size: 2rem;

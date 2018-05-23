@@ -44,7 +44,7 @@ const PlayerSlider = (props) => {
 				position={songPosition}
 				onFinishedPlaying={onEndSong}
 				onPlaying={onPlaying}
-				volume={10}
+				volume={50}
 			/>
 			<div className='slider-element album-cover'>
 				<div className="song-info-element">

@@ -26,7 +26,7 @@ const SliderStyle = flexWidth100.extend`
 			}
   	}
 		.song-title {
-				padding-top: 1rem;
+				padding-top: .5rem;
 				color: ${props => props.theme.mainTextColor};
 				font-weight: bold;
 				font-size: 1.1rem;

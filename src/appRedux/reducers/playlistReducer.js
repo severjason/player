@@ -1,3 +1,9 @@
+import {
+  ADD_SONG,
+  DELETE_SONG,
+  TOGGLE_PLAYLIST,
+} from "appRedux/actions/types";
+
 const INITIAL_STATE = {
   isOpened: false,
   songs: [
@@ -45,6 +51,40 @@ const INITIAL_STATE = {
 
 export default function playlistReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
+    case TOGGLE_PLAYLIST: {
+      return {
+        ...state,
+        isOpened: !state.isOpened,
+      }
+    }
+    case DELETE_SONG: {
+      return {
+        ...state,
+        songs: state.songs.filter((song) => song.id !== action.songId),
+      }
+    }
+    case ADD_SONG: {
+      const {id, title, preview,  artist, album} = action.song;
+      return {
+        ...state,
+        songs: [
+          ...state.songs,
+          {
+            id,
+            title,
+            duration: 30.7,
+            preview,
+            artist: {
+              name: artist.name,
+            },
+            album: {
+              title: album.title,
+              cover_big: album.cover_big,
+            }
+          }
+        ]
+      }
+    }
     default: {
       return state;
     }

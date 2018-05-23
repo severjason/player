@@ -1,29 +1,33 @@
 /* global soundManager:false */
 import React from 'react';
-import Sound from 'react-sound';
 import { PlayerMenu, PlayerControls, PlayerSlider, Playlist } from 'components';
 import PlayerStyle from './style';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as actions from 'appRedux/actions';
 
 class Player extends React.Component {
 
   state = {
-    playingStatus: this.props.playingStatus,
-    currentSong: this.props.playlist[0],
     position: this.props.songPosition,
-    playlistOpened: this.props.playlistOpened,
   };
 
   componentDidMount() {
     soundManager.setup({debugMode: false});
+    if (!this.props.currentSong) {
+      this.props.actions.setSong(this.props.playlist[0])
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.props.currentSong) {
+      this.props.actions.setSongPosition(this.state.position);
+    }
   }
 
   resetStatus = () => {
-    if (this.state.playingStatus === Sound.status.PLAYING) {
-      this.setState({playingStatus: Sound.status.PLAYING, position: 0})
-    } else {
-      this.setState({playingStatus: Sound.status.STOPPED, position: 0})
-    }
+    this.props.actions.resetStatus(this.props.playingStatus);
+    this.setState({position: 0});
   };
 
   handlePlaying = (sound) => {
@@ -31,76 +35,68 @@ class Player extends React.Component {
   };
 
   handlePlayClick = (id) => {
-    if (this.props.playlist.length) {
-      if (id === this.state.currentSong.id) {
-        this.setState({
-          playingStatus:
-            (this.state.playingStatus === Sound.status.PLAYING)
-              ? Sound.status.PAUSED
-              : Sound.status.PLAYING
-        });
-      } else {
-        this.setState({position: 0})
-      }
+    if (id === this.props.currentSong.id) {
+      this.props.actions.startPlaying(this.props.playingStatus);
+    } else {
+      this.setState({position: 0});
     }
   };
 
   handleSlide = (value) => {
-    this.setState({position: value * this.state.currentSong.duration * 1000});
+    this.setState({position: value * this.props.currentSong.duration * 1000});
   };
 
   handleForwardClick = () => {
-    const nextSongIndex = this.props.playlist.indexOf(this.state.currentSong) + 1;
-    if (this.props.playlist.length) {
-      if (nextSongIndex > this.props.playlist.length - 1) {
-        this.setState({currentSong: this.props.playlist[0]});
-      } else {
-        this.setState({currentSong: this.props.playlist[nextSongIndex]});
-      }
-      this.resetStatus();
+    const nextSongIndex = this.props.playlist.indexOf(this.props.currentSong) + 1;
+    if (nextSongIndex > this.props.playlist.length - 1) {
+      this.props.actions.setSong(this.props.playlist[0]);
+    } else {
+      this.props.actions.setSong(this.props.playlist[nextSongIndex]);
     }
+    this.resetStatus();
   };
 
   handleRewindClick = () => {
-    const previousSongIndex = this.props.playlist.indexOf(this.state.currentSong) - 1;
-    if (this.props.playlist.length) {
-      if (previousSongIndex < 0) {
-        this.setState({currentSong: this.props.playlist[this.props.playlist.length - 1]});
-      } else {
-        this.setState({currentSong: this.props.playlist[previousSongIndex]});
-      }
-      this.resetStatus();
+    const previousSongIndex = this.props.playlist.indexOf(this.props.currentSong) - 1;
+    if (previousSongIndex < 0) {
+      this.props.actions.setSong(this.props.playlist[this.props.playlist.length - 1]);
+    } else {
+      this.props.actions.setSong(this.props.playlist[previousSongIndex]);
     }
+    this.resetStatus();
   };
 
   togglePlaylist = () => {
-    this.setState({playlistOpened: !this.state.playlistOpened})
+    this.props.actions.togglePlaylist();
   };
 
   setCurrentSong = (songId) => {
     const index = this.props.playlist.findIndex((song) => song.id === songId);
-    this.setState({currentSong: this.props.playlist[index]})
+    this.props.actions.setSong(this.props.playlist[index]);
+    this.props.actions.setSongPosition(0);
   };
 
   removeSong = (songId) => {
-    this.props.removeSong(songId);
+    this.props.actions.deleteSong(songId);
     const index = this.props.playlist.findIndex((song) => song.id === songId);
     const nextIndex = (this.props.playlist.length <= index + 1) ? 0 : index + 1;
-    this.setCurrentSong(this.props.playlist[nextIndex].id);
+    (!nextIndex)
+      ? this.props.actions.setSong(null)
+      : this.setCurrentSong(this.props.playlist[nextIndex].id);
   };
 
   render() {
-    const {currentSong, playingStatus, position, playlistOpened} = this.state;
+    const {position} = this.state;
 
-    const playlistLength = this.props.playlist.length;
+    const {currentSong, playlistOpened, playingStatus} = this.props;
 
     return (
-      <PlayerStyle className={`${this.state.playlistOpened ? 'minimized' : ''} player`}>
+      <PlayerStyle className={`${playlistOpened ? 'minimized' : ''} player`}>
         <PlayerMenu
           playlistOpened={playlistOpened}
           togglePlaylist={this.togglePlaylist}
         />
-        {(playlistOpened)
+        {(playlistOpened && currentSong)
           ? <Playlist
             minimized={playlistOpened}
             playlist={this.props.playlist}
@@ -110,8 +106,8 @@ class Player extends React.Component {
             removeSong={this.removeSong}
           />
           : null}
-
-        {(playlistLength)
+        {(playlistOpened && !currentSong) ? <div className="info">Playlist is empty</div> : null}
+        {(currentSong)
           ? <PlayerSlider
             minimized={playlistOpened}
             playingStatus={playingStatus}
@@ -124,7 +120,8 @@ class Player extends React.Component {
           />
           : null
         }
-          <PlayerControls
+        {(currentSong)
+          ? <PlayerControls
             minimized={playlistOpened}
             playingStatus={playingStatus}
             currentSongId={currentSong.id}
@@ -132,6 +129,7 @@ class Player extends React.Component {
             onForwardClick={this.handleForwardClick}
             onRewindClick={this.handleRewindClick}
           />
+          : null}
       </PlayerStyle>
     );
   }
@@ -141,8 +139,11 @@ export default connect(
   state => ({
     playlist: state.playlist.songs,
     playlistOpened: state.playlist.isOpened,
+    currentSong: state.currentSong.song,
     playingStatus: state.currentSong.status,
     songPosition: state.currentSong.position,
   }),
-  null
+  dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+  })
 )(Player);

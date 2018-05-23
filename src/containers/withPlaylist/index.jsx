@@ -48,7 +48,7 @@ const withPlaylist = (WrappedComponent) =>
 
     checkIfSongInPlaylist = (songId) => !!this.state.playlist.find((song) => song.id === songId);
 
-    addSong = ({id, title, artist, album}) => {
+    addSong = ({id, title, preview, artist, album}) => {
       if (!this.checkIfSongInPlaylist(id)) {
         this.setState({
           playlist: [
@@ -57,6 +57,7 @@ const withPlaylist = (WrappedComponent) =>
               id,
               title,
               duration: 30.7,
+              preview,
               artist: {
                 name: artist.name,
               },
