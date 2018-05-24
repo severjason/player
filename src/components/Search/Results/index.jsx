@@ -1,28 +1,15 @@
-import React from 'react';
-import PropTypes from "prop-types";
+// @flow
+import * as React from 'react';
 import SearchedSong from '../Song';
+import { Song } from 'flow/interfaces';
 
-const _propTypes = {
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      title: PropTypes.string.isRequired,
-      duration: PropTypes.number,
-      preview: PropTypes.string,
-      artist: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      }),
-      album: PropTypes.shape({
-        title: PropTypes.string,
-        cover_big:PropTypes.string,
-      }),
-    })
-  ),
-  checkIfSongInPlaylist: PropTypes.func.isRequired,
-  toggleSong: PropTypes.func.isRequired,
-};
+type Props = {
+  results: Array<Song>,
+  checkIfSongInPlaylist: (songId: number) => boolean,
+  toggleSong: () => void,
+}
 
-const SearchResults = ({results, checkIfSongInPlaylist, toggleSong}) =>
+const SearchResults = ({results, checkIfSongInPlaylist, toggleSong}: Props) =>
   results.map((song, index) => {
     return (
       <SearchedSong
@@ -34,7 +21,5 @@ const SearchResults = ({results, checkIfSongInPlaylist, toggleSong}) =>
       />
     )
   });
-
-SearchResults.propTypes = _propTypes;
 
 export default SearchResults;

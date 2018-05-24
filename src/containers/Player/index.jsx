@@ -1,5 +1,5 @@
 /* global soundManager:false */
-import React from 'react';
+import * as React from 'react';
 import { PlayerMenu, PlayerControls, PlayerSlider, Playlist } from 'components';
 import PlayerStyle from './style';
 import { connect } from 'react-redux';

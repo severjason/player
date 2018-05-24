@@ -1,15 +1,15 @@
-import React from 'react';
-import PropTypes from "prop-types";
+// @flow
+import * as React from 'react';
 import { MdQueueMusic, MdSearch } from 'react-icons/lib/md'
 import { Link } from 'react-router-dom';
 import MenuStyle from './style';
 
-const _propTypes = {
-  playlistOpened: PropTypes.bool.isRequired,
-  togglePlaylist: PropTypes.func.isRequired,
+type Props = {
+  playlistOpened: boolean,
+  togglePlaylist: () => void,
 };
 
-const PlayerMenu = (props) => {
+const PlayerMenu = (props: Props) => {
   return (
     <MenuStyle justifyContent="space-between">
       <div
@@ -22,7 +22,5 @@ const PlayerMenu = (props) => {
     </MenuStyle>
   )
 };
-
-PlayerMenu.propTypes = _propTypes;
 
 export default PlayerMenu;

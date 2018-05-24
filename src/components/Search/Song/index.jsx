@@ -1,26 +1,17 @@
-import React from 'react';
-import PropTypes from "prop-types";
+// @flow
+import * as React from 'react';
 import SearchedSongStyle from './style';
-import * as helpers from "helpers";
+import * as helpers from 'helpers';
 import { MdAdd, MdDone } from 'react-icons/lib/md';
+import { Song } from 'flow/interfaces';
 
-const _propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string.isRequired,
-  duration: PropTypes.number,
-  preview: PropTypes.string,
-  artist: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-  album: PropTypes.shape({
-    title: PropTypes.string,
-    cover_big:PropTypes.string,
-  }),
-  checkIfSongInPlaylist: PropTypes.func.isRequired,
-  toggleSong: PropTypes.func.isRequired,
+type Props = {
+  ...Song,
+  checkIfSongInPlaylist: (songId: number) => boolean,
+  toggleSong: () => void,
 };
 
-const SearchedSong = (props) => {
+const SearchedSong = (props:Props) => {
   return (
     <SearchedSongStyle>
       <div className="song-container"
@@ -44,7 +35,5 @@ const SearchedSong = (props) => {
     </SearchedSongStyle>
   )
 };
-
-SearchedSong.propTypes = _propTypes;
 
 export default SearchedSong;
