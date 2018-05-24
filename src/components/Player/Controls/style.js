@@ -1,7 +1,9 @@
 import { flexWidth100 } from 'styles';
 
 const PlayerControlsStyle = flexWidth100.extend` 
-  height: 20%;
+  position: fixed;
+  align-items: flex-start;
+  transform: translateY(28.5rem);
   .controls-element {
     padding: 1rem;
     font-size: 2rem;

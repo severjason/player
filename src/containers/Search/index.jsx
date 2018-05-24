@@ -12,7 +12,7 @@ import * as actions from "appRedux/actions";
 class Search extends React.Component {
 
   state = {
-    position: this.props.songPosition,
+    position: 0,
   };
 
   componentWillUnmount() {
@@ -32,7 +32,7 @@ class Search extends React.Component {
       if (this.props.currentSong.id === newSong.id) {
         const index = this.props.playlist.findIndex((song) => song.id === newSong.id);
         const nextIndex = (this.props.playlist.length <= index + 1) ? 0 : index + 1;
-         if (!nextIndex) {
+         if (this.props.playlist.length === 1) {
            this.props.actions.setSong(null);
          } else {
            this.props.actions.setSong(this.props.playlist[nextIndex]);
@@ -78,19 +78,23 @@ class Search extends React.Component {
       this.props.actions.setSong(this.props.playlist[nextSongIndex]);
     }
     this.props.actions.setSongPosition(0);
+    this.setState({position: 0});
   };
 
   render() {
+    const songPosition = (this.state.position) ? this.state.position : this.props.songPosition;
     return (
       <SearchStyle>
-        <Sound
-          url={this.props.currentSong.preview}
-          playStatus={this.props.playingStatus}
-          position={this.state.songPosition}
-          onFinishedPlaying={this.handleOnEndSong}
-          onPlaying={this.handlePlaying}
-          volume={50}
-        />
+        {(this.props.currentSong)
+          ? <Sound
+            url={this.props.currentSong.preview}
+            playStatus={this.props.playingStatus}
+            position={songPosition}
+            onFinishedPlaying={this.handleOnEndSong}
+            onPlaying={this.handlePlaying}
+            volume={50}
+          />
+        : null}
         <div className="search-element">
           <input
             value={this.props.inputValue}

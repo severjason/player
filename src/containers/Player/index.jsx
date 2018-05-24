@@ -80,9 +80,11 @@ class Player extends React.Component {
     this.props.actions.deleteSong(songId);
     const index = this.props.playlist.findIndex((song) => song.id === songId);
     const nextIndex = (this.props.playlist.length <= index + 1) ? 0 : index + 1;
-    (!nextIndex)
-      ? this.props.actions.setSong(null)
-      : this.setCurrentSong(this.props.playlist[nextIndex].id);
+    if (this.props.playlist.length === 1) {
+      this.props.actions.setSong(null)
+    } else {
+      this.setCurrentSong(this.props.playlist[nextIndex].id);
+    }
   };
 
   render() {
