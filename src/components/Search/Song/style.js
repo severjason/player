@@ -10,6 +10,7 @@ const SearchedSongStyle = songStyle.extend`
   }
   .title-element {
     padding: 2px;
+    text-align: left;
   }
   
   .index {

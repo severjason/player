@@ -44,7 +44,7 @@ const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, rem
 
   return (
     <PlaylistStyle className={minimized ? 'minimized' : ''}>
-      {playlist.length ? songs : <div className="info">Playlist is empty</div>}
+      {songs}
     </PlaylistStyle>
   )
 };
