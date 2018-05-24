@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchStyle from './style';
 import Sound from 'react-sound';
-import { MdClear} from 'react-icons/lib/md';
+import { MdClear } from 'react-icons/lib/md';
 import { Link } from 'react-router-dom';
 import { SearchResults, Loader } from 'components';
 import debounce from 'lodash/debounce';
@@ -32,12 +32,12 @@ class Search extends React.Component {
       if (this.props.currentSong.id === newSong.id) {
         const index = this.props.playlist.findIndex((song) => song.id === newSong.id);
         const nextIndex = (this.props.playlist.length <= index + 1) ? 0 : index + 1;
-         if (this.props.playlist.length === 1) {
-           this.props.actions.setSong(null);
-         } else {
-           this.props.actions.setSong(this.props.playlist[nextIndex]);
-           this.props.actions.setSongPosition(0);
-         }
+        if (this.props.playlist.length === 1) {
+          this.props.actions.setSong(null);
+        } else {
+          this.props.actions.setSong(this.props.playlist[nextIndex]);
+          this.props.actions.setSongPosition(0);
+        }
       }
     }
   };
@@ -46,25 +46,15 @@ class Search extends React.Component {
     this.setState({position: sound.position});
   };
 
-  showNoResults = () => {
-    return !this.props.isLoading && this.props.results.length === 0 && this.props.inputValue && !this.props.error.isError;
-  };
-
-  showResults = () => {
-    return !this.props.isLoading && this.props.results.length > 0 && !this.props.error.isError && this.props.inputValue;
-  };
-
   checkIfSongInPlaylist = (songId) => !!this.props.playlist.find((song) => song.id === songId);
 
-  findWithDebounce = debounce(this.props.actions.searchSongsRequest, 500, { 'maxWait': 1000 });
+  findWithDebounce = debounce(this.props.actions.searchSongsRequest, 500, {'maxWait': 1000});
 
   handleInput = (e) => {
     this.props.actions.updateInput(e.target.value);
     if (e.target.value) {
-      this.props.actions.searchIsLoading(true);
       this.findWithDebounce(e.target.value);
     } else {
-      this.props.actions.searchIsLoading(false);
       this.findWithDebounce.cancel();
       this.props.actions.clearErrors();
     }
@@ -83,64 +73,66 @@ class Search extends React.Component {
 
   render() {
     const songPosition = (this.state.position) ? this.state.position : this.props.songPosition;
+    const {results, inputValue, isLoading, error, currentSong, playingStatus} = this.props;
+
     return (
       <SearchStyle>
-        {(this.props.currentSong)
+        {(currentSong)
           ? <Sound
-            url={this.props.currentSong.preview}
-            playStatus={this.props.playingStatus}
+            url={currentSong.preview}
+            playStatus={playingStatus}
             position={songPosition}
             onFinishedPlaying={this.handleOnEndSong}
             onPlaying={this.handlePlaying}
             volume={50}
           />
-        : null}
+          : null}
         <div className="search-element">
           <input
-            value={this.props.inputValue}
+            value={inputValue}
             className="input"
             placeholder="track name..."
             onChange={this.handleInput}
           />
           <Link to={`/`} className="close-link"><MdClear/></Link>
         </div>
-        {!this.props.isLoading && this.props.error.isError
+        {!isLoading && error.message
           ? <div className="no-results">
             Error occurred, try again later...
             <br/>
-            {(this.props.error.data.message)
+            {(error.message)
               ? <div>
-                Error: {JSON.stringify(this.props.error.data.message)}
+                Error: {JSON.stringify(error.message)}
               </div>
-              :null}
+              : null}
           </div>
           : null}
-        {this.props.isLoading ? <Loader/> : null}
-        {this.showNoResults()
-          ? <div className="no-results">No songs found...</div>
-          : null}
-        {this.showResults()
-          ? <SearchResults
-            results={this.props.results}
-            checkIfSongInPlaylist={this.checkIfSongInPlaylist}
-            toggleSong={this.toggleSong}
-          />
-          : null}
+        {
+          isLoading ? <Loader/> :
+            inputValue &&
+            (results.length && !error.message ?
+              <SearchResults
+                results={results}
+                checkIfSongInPlaylist={this.checkIfSongInPlaylist}
+                toggleSong={this.toggleSong}
+              /> : <div className="no-results">No songs found...</div>)
+        }
+
       </SearchStyle>
     )
   }
 }
 
 export default connect(
-  state => ({
-    playlist: state.playlist.songs,
-    currentSong: state.currentSong.song,
-    playingStatus: state.currentSong.status,
-    songPosition: state.currentSong.position,
-    inputValue: state.search.inputValue,
-    isLoading: state.search.isLoading,
-    results: state.search.results,
-    error: state.search.error,
+  ({playlist, currentSong, search}) => ({
+    playlist: playlist.songs,
+    currentSong: currentSong.song,
+    playingStatus: currentSong.status,
+    songPosition: currentSong.position,
+    inputValue: search.inputValue,
+    isLoading: search.isLoading,
+    results: search.results,
+    error: search.error,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch),

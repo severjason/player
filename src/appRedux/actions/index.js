@@ -6,19 +6,18 @@ import {
   TOGGLE_PLAYING,
   RESET_PLAYING_STATUS,
   SEARCH_SONGS_REQUEST,
-  SEARCH_IS_LOADING,
   CLEAR_ERRORS, ADD_SONG,
   UPDATE_SEARCH_INPUT,
 } from "./types";
 
 export const setSong = (song) => ({
   type: SET_SONG,
-  song,
+  payload: song,
 });
 
 export const setSongPosition = (position) => ({
   type: SET_SONG_POSITION,
-  position,
+  payload: position,
 });
 
 export const togglePlaylist = () => ({
@@ -27,32 +26,27 @@ export const togglePlaylist = () => ({
 
 export const startPlaying = (status) => ({
   type: TOGGLE_PLAYING,
-  status,
+  payload: status,
 });
 
 export const resetStatus = (status) => ({
   type: RESET_PLAYING_STATUS,
-  status,
+  payload: status,
 });
 
 export const deleteSong = (songId) => ({
   type: DELETE_SONG,
-  songId,
+  payload: songId,
 });
 
 export const addSong = (song) => ({
   type: ADD_SONG,
-  song,
+  payload: song,
 });
 
 export const searchSongsRequest = (request) => ({
   type: SEARCH_SONGS_REQUEST,
-  request,
-});
-
-export const searchIsLoading = (boolean) => ({
-  type: SEARCH_IS_LOADING,
-  boolean
+  payload: request,
 });
 
 export const clearErrors = () => ({
@@ -61,5 +55,5 @@ export const clearErrors = () => ({
 
 export const updateInput = (inputValue) => ({
   type: UPDATE_SEARCH_INPUT,
-  inputValue,
+  payload: inputValue,
 });

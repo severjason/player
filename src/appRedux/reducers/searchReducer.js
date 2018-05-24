@@ -1,6 +1,6 @@
 import {
   CLEAR_ERRORS,
-  SEARCH_IS_LOADING,
+  SEARCH_SONGS_REQUEST,
   SONGS_REQUEST_FAILED,
   SONGS_REQUEST_SUCCESS, UPDATE_SEARCH_INPUT,
 } from "../actions/types";
@@ -10,33 +10,33 @@ const INITIAL_STATE = {
   results: [],
   isLoading: false,
   error: {
-    isError: false,
-    data: {}
+    message: null
   }
 };
 
 export default function searchReducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case SEARCH_IS_LOADING: {
+    case SEARCH_SONGS_REQUEST: {
       return {
         ...state,
-        isLoading: action.boolean,
+        isLoading: true,
       }
     }
     case SONGS_REQUEST_SUCCESS: {
       return {
         ...state,
-        results: action.response.data,
+        results: action.payload.data,
         isLoading: false,
-        error: INITIAL_STATE.error,
+        error: {
+          message: null
+        },
       }
     }
     case SONGS_REQUEST_FAILED: {
       return {
         ...state,
         error: {
-          isError: true,
-          data: action.error,
+          message: action.payload,
         },
         isLoading: false,
       }
@@ -44,13 +44,15 @@ export default function searchReducer(state = INITIAL_STATE, action) {
     case CLEAR_ERRORS: {
       return {
         ...state,
-        error: INITIAL_STATE.error,
+        error: {
+          message: null
+        },
       }
     }
     case UPDATE_SEARCH_INPUT: {
       return {
         ...state,
-        inputValue: action.inputValue,
+        inputValue: action.payload,
       }
     }
     default: {

@@ -8,21 +8,21 @@ import * as api from 'service/deezerAPI';
 
 function* fetchSongs(action) {
   try {
-    const response = yield call(api.findSong, action.request);
+    const response = yield call(api.findSong, action.payload);
 
     yield (response.data)
       ? put({
-      type: SONGS_REQUEST_SUCCESS,
-      response,
-    })
+        type: SONGS_REQUEST_SUCCESS,
+        payload: response,
+      })
       : put({
         type: SONGS_REQUEST_FAILED,
-        error: response,
+        payload: response,
       });
   } catch (e) {
     yield put({
       type: SONGS_REQUEST_FAILED,
-      error: e,
+      payload: e,
     })
   }
 }

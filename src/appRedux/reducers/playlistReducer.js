@@ -60,11 +60,11 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
     case DELETE_SONG: {
       return {
         ...state,
-        songs: state.songs.filter((song) => song.id !== action.songId),
+        songs: state.songs.filter((song) => song.id !== action.payload),
       }
     }
     case ADD_SONG: {
-      const {id, title, preview,  artist, album} = action.song;
+      const {id, title, preview,  artist, album} = action.payload;
       return {
         ...state,
         songs: [

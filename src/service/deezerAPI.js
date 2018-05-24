@@ -1,8 +1,11 @@
 import fetchJsonp from 'fetch-jsonp';
+import trim from 'lodash/trim'
 
 export function findSong(request) {
   const urlDeezerAPI = "https://api.deezer.com/search?q=";
   const jsonpOutput = "&output=jsonp";
+
+  request = !!trim(request) ? request : 'a';
 
   return fetchJsonp(urlDeezerAPI + request + jsonpOutput)
     .then(results => results.json())
