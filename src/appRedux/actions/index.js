@@ -12,12 +12,16 @@ import {
 
 export const setSong = (song) => ({
   type: SET_SONG,
-  payload: song,
+  payload: {
+    song,
+  },
 });
 
 export const setSongPosition = (position) => ({
   type: SET_SONG_POSITION,
-  payload: position,
+  payload: {
+    position,
+  },
 });
 
 export const togglePlaylist = () => ({
@@ -26,7 +30,9 @@ export const togglePlaylist = () => ({
 
 export const startPlaying = (status) => ({
   type: TOGGLE_PLAYING,
-  payload: status,
+  payload: {
+    status,
+  },
 });
 
 export const resetStatus = (status) => ({
@@ -36,17 +42,23 @@ export const resetStatus = (status) => ({
 
 export const deleteSong = (songId) => ({
   type: DELETE_SONG,
-  payload: songId,
+  payload: {
+    songId,
+  },
 });
 
 export const addSong = (song) => ({
   type: ADD_SONG,
-  payload: song,
+  payload: {
+    song,
+  },
 });
 
 export const searchSongsRequest = (request) => ({
   type: SEARCH_SONGS_REQUEST,
-  payload: request,
+  payload: {
+    request,
+  },
 });
 
 export const clearErrors = () => ({
@@ -55,5 +67,7 @@ export const clearErrors = () => ({
 
 export const updateInput = (inputValue) => ({
   type: UPDATE_SEARCH_INPUT,
-  payload: inputValue,
+  payload: {
+    inputValue,
+  },
 });

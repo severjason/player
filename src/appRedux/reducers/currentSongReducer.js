@@ -17,22 +17,22 @@ export default function currentSongReducer(state = INITIAL_STATE, action) {
     case SET_SONG: {
       return {
         ...state,
-        song: action.payload,
+        song: action.payload.song,
       }
     }
     case SET_SONG_POSITION: {
       return {
         ...state,
-        position: action.payload,
+        position: action.payload.position,
       }
     }
     case TOGGLE_PLAYING: {
-      return (action.payload === soundStatus.PLAYING)
+      return (action.payload.status === soundStatus.PLAYING)
         ? {...state, status: soundStatus.PAUSED}
         : {...state, status: soundStatus.PLAYING}
     }
     case RESET_PLAYING_STATUS: {
-      return (action.payload === soundStatus.PLAYING)
+      return (action.payload.status === soundStatus.PLAYING)
         ? {...state, status: soundStatus.PLAYING}
         : {...state, status: soundStatus.STOPPED}
     }

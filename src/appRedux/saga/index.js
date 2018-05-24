@@ -13,16 +13,22 @@ function* fetchSongs(action) {
     yield (response.data)
       ? put({
         type: SONGS_REQUEST_SUCCESS,
-        payload: response,
+        payload: {
+          response,
+        },
       })
       : put({
         type: SONGS_REQUEST_FAILED,
-        payload: response,
+        payload: {
+          error: response,
+        },
       });
-  } catch (e) {
+  } catch (error) {
     yield put({
       type: SONGS_REQUEST_FAILED,
-      payload: e,
+      payload: {
+        error
+      },
     })
   }
 }

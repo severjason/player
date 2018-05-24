@@ -25,7 +25,7 @@ export default function searchReducer(state = INITIAL_STATE, action) {
     case SONGS_REQUEST_SUCCESS: {
       return {
         ...state,
-        results: action.payload.data,
+        results: action.payload.response.data,
         isLoading: false,
         error: {
           message: null
@@ -36,7 +36,7 @@ export default function searchReducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         error: {
-          message: action.payload,
+          message: action.payload.error,
         },
         isLoading: false,
       }
@@ -52,7 +52,7 @@ export default function searchReducer(state = INITIAL_STATE, action) {
     case UPDATE_SEARCH_INPUT: {
       return {
         ...state,
-        inputValue: action.payload,
+        inputValue: action.payload.inputValue,
       }
     }
     default: {
