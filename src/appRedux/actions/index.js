@@ -40,7 +40,9 @@ export const startPlaying = (status: SoundStatus): Action => ({
 
 export const resetStatus = (status: SoundStatus): Action => ({
   type: RESET_PLAYING_STATUS,
-  payload: status,
+  payload: {
+    status,
+  },
 });
 
 export const deleteSong = (songId: number): Action => ({
