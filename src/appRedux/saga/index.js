@@ -12,7 +12,7 @@ import type { Saga } from 'redux-saga';
 
 function* fetchSongs(action): Saga<void> {
   try {
-    const response = yield call(api.findSong, action.payload);
+    const response = yield call(api.findSong, action.payload.request);
 
     yield (response.data)
       ? put({
