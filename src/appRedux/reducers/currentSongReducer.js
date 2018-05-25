@@ -1,4 +1,5 @@
 // @flow
+
 import {
   SET_SONG,
   SET_SONG_POSITION,
@@ -15,9 +16,9 @@ const INITIAL_STATE = {
 };
 
 type State = {
-  song: Song | null,
-  status: SoundStatus,
-  position: number,
+  +song: Song | null,
+  +status: SoundStatus,
+  +position: number,
 }
 
 export default function currentSongReducer(state: State = INITIAL_STATE, action: Action): State {

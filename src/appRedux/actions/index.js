@@ -19,57 +19,57 @@ export const setSong = (song: Song) => ({
   },
 });
 
-export const setSongPosition = (position: number):Action => ({
+export const setSongPosition = (position: number): Action => ({
   type: SET_SONG_POSITION,
   payload: {
     position,
   },
 });
 
-export const togglePlaylist = ():Action => ({
+export const togglePlaylist = (): Action => ({
   type: TOGGLE_PLAYLIST,
   payload: {},
 });
 
-export const startPlaying = (status: SoundStatus):Action => ({
+export const startPlaying = (status: SoundStatus): Action => ({
   type: TOGGLE_PLAYING,
   payload: {
     status,
   },
 });
 
-export const resetStatus = (status: SoundStatus):Action => ({
+export const resetStatus = (status: SoundStatus): Action => ({
   type: RESET_PLAYING_STATUS,
   payload: status,
 });
 
-export const deleteSong = (songId: number):Action => ({
+export const deleteSong = (songId: number): Action => ({
   type: DELETE_SONG,
   payload: {
     songId,
   },
 });
 
-export const addSong = (song: Song):Action => ({
+export const addSong = (song: Song): Action => ({
   type: ADD_SONG,
   payload: {
     song,
   },
 });
 
-export const searchSongsRequest = (request: string):Action => ({
+export const searchSongsRequest = (request: string): Action => ({
   type: SEARCH_SONGS_REQUEST,
   payload: {
     request,
   },
 });
 
-export const clearErrors = ():Action => ({
+export const clearErrors = (): Action => ({
   type: CLEAR_ERRORS,
   payload: {},
 });
 
-export const updateInput = (inputValue: string):Action => ({
+export const updateInput = (inputValue: string): Action => ({
   type: UPDATE_SEARCH_INPUT,
   payload: {
     inputValue,

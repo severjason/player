@@ -7,8 +7,8 @@ import {
 import type { Action, Song } from "flow/types";
 
 type State = {
-  isOpened: boolean,
-  songs: Array<Song>
+  +isOpened: boolean,
+  +songs: Array<Song>
 }
 
 const INITIAL_STATE = {

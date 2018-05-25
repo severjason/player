@@ -18,10 +18,44 @@ export type Song = {|
 export type SoundStatus = Sound.status.STOPPED | Sound.status.PLAYING | Sound.status.PAUSED;
 
 export type Action = {
-  +type: string,
-  +payload: any,
+  type: string,
+  payload: any,
 }
+/*
+type BaseAction = {|
+  type: string,
+|}
 
+type SongIdAction = {|
+  type: string,
+  payload: {
+    songId: number,
+  }
+|}
+
+type SongAction = {|
+  type: string,
+  payload: {
+    song: Song,
+  }
+|}
+
+export type PlaylistActions =
+  | BaseAction
+  | SongIdAction
+  | SongAction;
+
+export type ActionPayload = {|
+  song?: Song,
+  status?: SoundStatus,
+  position?: number,
+  songId?: number,
+  request?: string,
+  data?: any,
+  inputValue?: string,
+  error?: any,
+|}
+*/
 export type Actions = {
   setSong: (song: Song | null) => Action;
   setSongPosition: (position: number) => Action;

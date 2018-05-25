@@ -1,4 +1,5 @@
 // @flow
+
 import {
   CLEAR_ERRORS,
   SEARCH_SONGS_REQUEST,
@@ -8,10 +9,10 @@ import {
 import type { Action, Song } from "flow/types";
 
 type State = {
-  inputValue: string,
-  results: Array<Song>,
-  isLoading: boolean,
-  error: any,
+  +inputValue: string,
+  +results: Array<Song>,
+  +isLoading: boolean,
+  +error: any,
 }
 
 const INITIAL_STATE = {
@@ -34,7 +35,7 @@ export default function searchReducer(state: State = INITIAL_STATE, action: Acti
     case SONGS_REQUEST_SUCCESS: {
       return {
         ...state,
-        results: action.payload.response.data,
+        results: action.payload.data,
         isLoading: false,
         error: {
           message: null
