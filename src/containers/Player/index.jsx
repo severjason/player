@@ -99,7 +99,9 @@ class Player extends React.Component<Props, State> {
     if (this.props.playlist.length === 1) {
       this.props.actions.setSong(null)
     } else {
-      this.setCurrentSong(this.props.playlist[nextIndex].id);
+      if (songId === this.props.currentSong.id) {
+        this.setCurrentSong(this.props.playlist[nextIndex].id);
+      }
     }
   };
 
