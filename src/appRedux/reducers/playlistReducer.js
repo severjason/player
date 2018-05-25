@@ -71,22 +71,22 @@ export default function playlistReducer(state: State = INITIAL_STATE, action: Ac
       }
     }
     case ADD_SONG: {
-      const {id, title, preview,  artist, album}: Song = action.payload.song;
+      const song: Song = action.payload.song;
       return {
         ...state,
         songs: [
           ...state.songs,
           {
-            id,
-            title,
+            id: song.id,
+            title: song.title,
             duration: 30.7,
-            preview,
+            preview: song.preview,
             artist: {
-              name: artist.name,
+              name: song.artist.name,
             },
             album: {
-              title: album.title,
-              cover_big: album.cover_big,
+              title: song.album.title,
+              cover_big: song.album.cover_big,
             }
           }
         ]
