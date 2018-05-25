@@ -2,7 +2,7 @@
 import * as React from 'react';
 import Sound from 'react-sound';
 import SliderStyle from './style';
-import { Song } from 'flow/interfaces';
+import type { Song } from 'flow/types';
 import SliderComponent from './SliderComponent';
 
 type Props = {

@@ -1,4 +1,5 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import SearchStyle from './style';
 import Sound from 'react-sound';
 import { MdClear } from 'react-icons/lib/md';
@@ -8,8 +9,25 @@ import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import * as actions from "appRedux/actions";
+import type { Actions, Song, SoundStatus } from "../../flow/types";
 
-class Search extends React.Component {
+type Props = {
+  playlist: Array<Song>,
+  currentSong: Song,
+  playingStatus: SoundStatus,
+  songPosition: number,
+  inputValue: string,
+  isLoading: boolean,
+  results: Array<Song>,
+  error: any,
+  actions: Actions,
+}
+
+type State = {
+  position: number,
+}
+
+class Search extends React.Component<Props, State> {
 
   state = {
     position: 0,

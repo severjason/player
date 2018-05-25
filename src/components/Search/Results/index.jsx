@@ -1,7 +1,7 @@
 // @flow
 import * as React from 'react';
 import SearchedSong from '../Song';
-import { Song } from 'flow/interfaces';
+import type { Song } from 'flow/types';
 
 type Props = {
   results: Array<Song>,

@@ -1,20 +1,34 @@
 /* global soundManager:false */
+// @flow
 import * as React from 'react';
 import { PlayerMenu, PlayerControls, PlayerSlider, Playlist } from 'components';
 import PlayerStyle from './style';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import type { Song, Actions } from 'flow/types';
 import * as actions from 'appRedux/actions';
 
+type Props = {
+  playlist: Array<Song>,
+  playlistOpened: boolean,
+  currentSong: Song,
+  playingStatus: string,
+  songPosition: number,
+  actions: Actions,
+}
 
+type State = {
+  position: number,
+}
 
-class Player extends React.Component {
+class Player extends React.Component<Props, State> {
 
   state = {
     position: this.props.songPosition,
   };
 
   componentDidMount() {
+    // $FlowFixMe
     soundManager.setup({debugMode: false});
     if (!this.props.currentSong) {
       this.props.actions.setSong(this.props.playlist[0])

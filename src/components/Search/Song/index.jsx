@@ -3,12 +3,13 @@ import * as React from 'react';
 import SearchedSongStyle from './style';
 import * as helpers from 'helpers';
 import { MdAdd, MdDone } from 'react-icons/lib/md';
-import { Song } from 'flow/interfaces';
+import type { Song } from 'flow/types';
 
 type Props = {
   ...Song,
+  index: number,
   checkIfSongInPlaylist: (songId: number) => boolean,
-  toggleSong: () => void,
+  toggleSong: (soundIndex: number) => void,
 };
 
 const SearchedSong = (props:Props) => {

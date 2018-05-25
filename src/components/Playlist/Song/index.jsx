@@ -2,14 +2,16 @@
 import * as React from 'react';
 import SongStyle from './style';
 import * as helpers from 'helpers';
-import { Song } from 'flow/interfaces';
+import type { Song } from 'flow/types';
 import { MdDelete} from 'react-icons/lib/md';
 
 type Props = {
   ...Song,
+  index: number,
   currentSongId: number,
   onPlayClick: (id: number) => void,
   setSong: (songId: number) => void,
+  removeSong: (songId: number) => void,
 }
 
 const PlaylistSong = (props: Props) => {
