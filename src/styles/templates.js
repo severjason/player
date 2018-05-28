@@ -94,3 +94,26 @@ export const LoaderStyle = styled.div`
   transform: translate(-50px, -50px) scale(1) translate(50px, 50px);
 }
 `;
+
+export const styledInput = styled.div`
+  width: 100%;
+  .input {
+    width: 100%;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1rem;
+    border: 0;
+    outline: 0;
+    background: ${props => props.theme.mainColor};
+    color: ${props => props.theme.mainTextColor};
+    border-bottom: 1px solid ${props => props.theme.secondaryColor};
+    
+    &::placeholder {
+      color: ${props => props.theme.secondaryTextColor};
+    }
+    
+    &:focus {
+      border-bottom: 2px solid ${props => props.theme.secondaryColor};
+    }
+  }
+`;

@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import SearchStyle from './style';
+import { SearchStyle, SearchInput } from './style';
 import Sound from 'react-sound';
 import { MdClear } from 'react-icons/lib/md';
 import { Link } from 'react-router-dom';
@@ -106,12 +106,14 @@ class Search extends React.Component<Props, State> {
           />
           : null}
         <div className="search-element">
-          <input
-            value={inputValue}
-            className="input"
-            placeholder="track name..."
-            onChange={this.handleInput}
-          />
+          <SearchInput>
+            <input
+              value={inputValue}
+              className="input"
+              placeholder="track name..."
+              onChange={this.handleInput}
+            />
+          </SearchInput>
           <Link to={`/`} className="close-link"><MdClear/></Link>
         </div>
         {!isLoading && error.message

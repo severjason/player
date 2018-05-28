@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { SearchPage, HomePage } from 'pages';
+import { SearchPage, HomePage, LoginPage } from 'pages';
 
 const Routes = () => {
   return (
@@ -8,6 +8,7 @@ const Routes = () => {
       <Switch>
         <Route path="/player" component={HomePage}/>
         <Route path="/search" component={SearchPage}/>
+        <Route path="/login" component={LoginPage} />
         <Route path="*" render={() => <Redirect to="/player"/>}/>
       </Switch>
     </div>
