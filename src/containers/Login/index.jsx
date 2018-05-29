@@ -1,47 +1,80 @@
 // @flow
 import * as React from 'react';
-import { MdClear, MdCheck } from 'react-icons/lib/md';
-import { Link } from 'react-router-dom';
-import { LoginInput, LoginStyle } from './style';
-import { reduxForm, Field } from 'redux-form'
+import { MdCheck } from 'react-icons/lib/md';
+import { Redirect } from 'react-router-dom';
+import { LoginStyle } from './style';
+import { reduxForm, Field } from 'redux-form';
+import type { FormProps } from 'redux-form';
+import { LoginInput } from 'components/Login';
+import type { Actions } from "flow/types";
+import * as actions from "appRedux/actions";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-class Login extends React.Component<{}> {
+type validatedValues = {
+  username: string;
+  password: string;
+}
 
+type validatedErrors = {
+  username: string;
+  password: string;
+}
+
+export const validateLoginInput = (values: validatedValues): validatedErrors => {
+  const errors = {};
+  if (!values.username) {
+    errors.username = 'Required'
+  }
+  if (!values.password) {
+    errors.password = 'Required'
+  }
+  return errors;
+};
+
+type Props = {
+  ...FormProps,
+  actions: Actions,
+}
+
+
+class LoginForm extends React.Component<Props> {
 
   render() {
-    const { pristine, submitting } = this.props;
-    return (
+    const {userLoggedIn, actions, invalid, pristine, submitting, handleSubmit}: Props = this.props;
+
+    return !userLoggedIn ? (
       <LoginStyle>
-        <div className="login-item">
-          <Link to={`/`} className="close-link"><MdClear/></Link>
-        </div>
         <div className="login-item">
           <form
             name="login"
             className="login-form"
-            onSubmit={(e) => {
-              // e.preventDefault();
-            }}
+            onSubmit={handleSubmit(data => {
+              actions.userLogin(data.username);
+            })}
           >
             <div className="login-title">
               Login form
             </div>
-            <LoginInput>
-              <Field
-                name="username"
-                component="input"
-                type="text"
-                className="input"
-                />
-            </LoginInput>
-            <LoginInput>
-              <input
-                className="input"
-                type="password"
-                placeholder="password"/>
-            </LoginInput>
+            <Field
+              name="username"
+              component={LoginInput}
+              className="input"
+              errorClass="input-error"
+              labelClass="input-label"
+              type="text"
+              label="Login"
+            />
+            <Field
+              name="password"
+              component={LoginInput}
+              className="input"
+              errorClass="input-error"
+              labelClass="input-label"
+              type="password"
+              label="Password"/>
             <button
-              disabled={pristine || submitting}
+              disabled={invalid || pristine || submitting}
               type="submit"
               className="login-button"
             >
@@ -50,12 +83,20 @@ class Login extends React.Component<{}> {
           </form>
         </div>
       </LoginStyle>
-    )
+    ) : <Redirect to='/player' />
   }
 }
 
-Login = reduxForm({
+const Login = reduxForm({
   form: 'login',
-})(Login);
+  validate: validateLoginInput,
+})(LoginForm);
 
-export default Login;
+export default connect(
+  ({auth}) => ({
+    userLoggedIn: auth.userLoggedIn,
+  }),
+  dispatch => ({
+    actions: bindActionCreators(actions, dispatch),
+  })
+)(Login);

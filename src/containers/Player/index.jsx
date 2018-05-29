@@ -13,7 +13,10 @@ type Props = {
   playlistOpened: boolean,
   currentSong: Song,
   playingStatus: string,
+  userLoggedIn: boolean,
+  username: string,
   songPosition: number,
+  showConfirmation: boolean,
   actions: Actions,
 }
 
@@ -31,7 +34,7 @@ class Player extends React.Component<Props, State> {
     // $FlowFixMe
     soundManager.setup({debugMode: false});
     if (!this.props.currentSong) {
-      this.props.actions.setSong(this.props.playlist[0])
+      this.props.actions.setSong(this.props.playlist[0]);
     }
   }
 
@@ -88,8 +91,9 @@ class Player extends React.Component<Props, State> {
 
   setCurrentSong = (songId) => {
     const index = this.props.playlist.findIndex((song) => song.id === songId);
-    this.props.actions.setSong(this.props.playlist[index]);
     this.props.actions.setSongPosition(0);
+    this.setState({position: 0});
+    this.props.actions.setSong(this.props.playlist[index]);
   };
 
   removeSong = (songId) => {
@@ -108,13 +112,25 @@ class Player extends React.Component<Props, State> {
   render() {
     const {position} = this.state;
 
-    const {currentSong, playlistOpened, playingStatus} = this.props;
+    const {
+      showConfirmation,
+      actions,
+      currentSong,
+      playlistOpened,
+      playingStatus,
+      userLoggedIn,
+      username} = this.props;
 
     return (
       <PlayerStyle className={`${playlistOpened ? 'minimized' : ''} player`}>
         <PlayerMenu
           playlistOpened={playlistOpened}
           togglePlaylist={this.togglePlaylist}
+          userLoggedIn={userLoggedIn}
+          username={username}
+          showConfirmation={showConfirmation}
+          logout={actions.userLogout}
+          toggleConfirmation={actions.toggleConfirmation}
         />
         {(playlistOpened && currentSong)
           ? <Playlist
@@ -156,12 +172,15 @@ class Player extends React.Component<Props, State> {
 }
 
 export default connect(
-  state => ({
-    playlist: state.playlist.songs,
-    playlistOpened: state.playlist.isOpened,
-    currentSong: state.currentSong.song,
-    playingStatus: state.currentSong.status,
-    songPosition: state.currentSong.position,
+  ({playlist, currentSong, auth, confirmation}) => ({
+    playlist: playlist.songs,
+    playlistOpened: playlist.isOpened,
+    currentSong: currentSong.song,
+    playingStatus: currentSong.status,
+    songPosition: currentSong.position,
+    userLoggedIn: auth.userLoggedIn,
+    showConfirmation: confirmation.showConfirmation,
+    username: auth.username,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch),

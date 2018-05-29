@@ -113,7 +113,7 @@ export const styledInput = styled.div`
     }
     
     &:focus {
-      border-bottom: 2px solid ${props => props.theme.secondaryColor};
+      border-bottom-width: 2px;
     }
   }
 `;

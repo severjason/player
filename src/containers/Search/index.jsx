@@ -9,7 +9,7 @@ import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import * as actions from "appRedux/actions";
-import type { Actions, Song, SoundStatus } from "../../flow/types";
+import type { Actions, Song, SoundStatus } from "flow/types";
 
 type Props = {
   playlist: Array<Song>,
@@ -54,6 +54,7 @@ class Search extends React.Component<Props, State> {
           this.props.actions.setSong(null);
         } else {
           this.props.actions.setSong(this.props.playlist[nextIndex]);
+          this.setState({position: 0});
           this.props.actions.setSongPosition(0);
         }
       }

@@ -21,7 +21,7 @@ const SliderComponentStyle = styled.div`
         background: ${props=>props.theme.secondaryTextColor};
         
         .rangeslider__handle {
-          display: inline-block;
+          display: none;
           position: absolute;
           width: 2px;
           height: 16px;

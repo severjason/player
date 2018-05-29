@@ -1,9 +1,4 @@
-import { styledInput } from 'styles/templates';
 import styled from 'styled-components';
-
-export const LoginInput = styledInput.extend`
-  
-`;
 
 export const LoginStyle = styled.div`
   padding: .5rem;
@@ -53,9 +48,6 @@ export const LoginStyle = styled.div`
       transform: scale(.9);
     }
   }
-  
-  .input {
-    padding-top: .5rem;
   }
 `;
 

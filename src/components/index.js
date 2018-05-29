@@ -4,6 +4,7 @@ import PlayerSlider from './Player/Slider';
 import Playlist from './Playlist';
 import SearchResults from './Search/Results';
 import Loader from './Loader';
+import Confirmation from './Confirmation';
 
 export {
   PlayerMenu,
@@ -12,4 +13,5 @@ export {
   Playlist,
   SearchResults,
   Loader,
+  Confirmation,
 }
