@@ -1,9 +1,19 @@
+// @flow
+
 import {
   CLEAR_ERRORS,
   SEARCH_SONGS_REQUEST,
   SONGS_REQUEST_FAILED,
   SONGS_REQUEST_SUCCESS, UPDATE_SEARCH_INPUT,
 } from "../actions/types";
+import type { Action, Song } from "flow/types";
+
+type State = {
+  +inputValue: string,
+  +results: Array<Song>,
+  +isLoading: boolean,
+  +error: any,
+}
 
 const INITIAL_STATE = {
   inputValue: '',
@@ -14,7 +24,7 @@ const INITIAL_STATE = {
   }
 };
 
-export default function searchReducer(state = INITIAL_STATE, action) {
+export default function searchReducer(state: State = INITIAL_STATE, action: Action): State {
   switch (action.type) {
     case SEARCH_SONGS_REQUEST: {
       return {
@@ -25,7 +35,7 @@ export default function searchReducer(state = INITIAL_STATE, action) {
     case SONGS_REQUEST_SUCCESS: {
       return {
         ...state,
-        results: action.payload.response.data,
+        results: action.payload.data,
         isLoading: false,
         error: {
           message: null

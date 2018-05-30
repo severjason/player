@@ -1,3 +1,5 @@
+// @flow
+
 import {
   SET_SONG,
   SET_SONG_POSITION,
@@ -5,6 +7,7 @@ import {
   TOGGLE_PLAYING,
   RESET_PLAYING_STATUS
 } from "appRedux/actions/types";
+import type { Action, Song, SoundStatus } from "flow/types";
 
 const INITIAL_STATE = {
   song: null,
@@ -12,7 +15,13 @@ const INITIAL_STATE = {
   position: 0,
 };
 
-export default function currentSongReducer(state = INITIAL_STATE, action) {
+type State = {
+  +song: Song | null,
+  +status: SoundStatus,
+  +position: number,
+}
+
+export default function currentSongReducer(state: State = INITIAL_STATE, action: Action): State {
   switch (action.type) {
     case SET_SONG: {
       return {

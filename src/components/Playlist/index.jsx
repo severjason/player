@@ -1,32 +1,19 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import PlaylistStyle from './style';
-import PropTypes from "prop-types";
+import type { Song } from 'flow/types';
 import PlaylistSong from './Song';
 
-const _propTypes = {
-  playlist: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      duration: PropTypes.number.isRequired,
-      preview: PropTypes.string.isRequired,
-      artist: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-      }),
-      album: PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        cover_big:PropTypes.string.isRequired,
-      }),
-    })
-  ),
-  currentSongId: PropTypes.number.isRequired,
-  minimized: PropTypes.bool,
-  onPlayClick: PropTypes.func.isRequired,
-  setSong: PropTypes.func.isRequired,
-  removeSong: PropTypes.func.isRequired,
-};
+type Props = {
+  playlist: Array<Song>,
+  currentSongId: number,
+  minimized: boolean,
+  onPlayClick: (id: number) => void,
+  setSong: (songId: number) => void,
+  removeSong: (songId: number) => void,
+}
 
-const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, removeSong}) => {
+const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, removeSong}: Props) => {
 
   const songs = playlist.map((song, index) => {
     return (
@@ -48,7 +35,5 @@ const Playlist = ({playlist, currentSongId, onPlayClick, setSong, minimized, rem
     </PlaylistStyle>
   )
 };
-
-Playlist.propTypes = _propTypes;
 
 export default Playlist;

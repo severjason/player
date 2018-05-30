@@ -1,7 +1,8 @@
+// @flow
 import fetchJsonp from 'fetch-jsonp';
-import trim from 'lodash/trim'
+import trim from 'lodash/trim';
 
-export function findSong(request) {
+export function findSong(request: string) {
   const urlDeezerAPI = "https://api.deezer.com/search?q=";
   const jsonpOutput = "&output=jsonp";
 

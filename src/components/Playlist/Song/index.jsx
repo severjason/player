@@ -1,27 +1,20 @@
-import React from 'react';
-import PropTypes from "prop-types";
+// @flow
+import * as React from 'react';
 import SongStyle from './style';
-import * as helpers from "helpers";
+import * as helpers from 'helpers';
+import type { Song } from 'flow/types';
 import { MdDelete} from 'react-icons/lib/md';
 
-const _propTypes = {
-  id: PropTypes.number.isRequired,
-  title: PropTypes.string.isRequired,
-  duration: PropTypes.number.isRequired,
-  preview: PropTypes.string.isRequired,
-  artist: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-  }),
-  album: PropTypes.shape({
-    title: PropTypes.string,
-    cover_big:PropTypes.string,
-  }),
-  currentSongId: PropTypes.number.isRequired,
-  onPlayClick: PropTypes.func.isRequired,
-  setSong: PropTypes.func.isRequired,
-};
+type Props = {
+  ...Song,
+  index: number,
+  currentSongId: number,
+  onPlayClick: (id: number) => void,
+  setSong: (songId: number) => void,
+  removeSong: (songId: number) => void,
+}
 
-const PlaylistSong = (props) => {
+const PlaylistSong = (props: Props) => {
   return (
     <SongStyle >
       <div
@@ -51,7 +44,5 @@ const PlaylistSong = (props) => {
     </SongStyle>
   )
 };
-
-PlaylistSong.propTypes = _propTypes;
 
 export default PlaylistSong;

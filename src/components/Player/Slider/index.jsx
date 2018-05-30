@@ -1,32 +1,21 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import Sound from 'react-sound';
-import PropTypes from "prop-types";
 import SliderStyle from './style';
+import type { Song } from 'flow/types';
 import SliderComponent from './SliderComponent';
 
-const _propTypes = {
-	song: PropTypes.shape({
-		id: PropTypes.number.isRequired,
-		title: PropTypes.string.isRequired,
-		duration: PropTypes.number.isRequired,
-    preview: PropTypes.string.isRequired,
-    artist: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-    }),
-    album: PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      cover_big:PropTypes.string.isRequired,
-    }),
-	}),
-	playingStatus: PropTypes.string.isRequired,
-	songPosition: PropTypes.number.isRequired,
-	minimized: PropTypes.bool,
-	onEndSong: PropTypes.func.isRequired,
-	onPlaying: PropTypes.func.isRequired,
-	onSlide: PropTypes.func.isRequired,
-};
+type Props = {
+  song: Song,
+  playingStatus: string,
+  songPosition: number,
+  minimized: boolean,
+  onEndSong: () => void,
+  onPlaying: (id: number) => void,
+  onSlide: (value: number) => void,
+}
 
-const PlayerSlider = (props) => {
+const PlayerSlider = (props: Props) => {
 	const  {
 		song,
 		minimized,
@@ -68,7 +57,5 @@ const PlayerSlider = (props) => {
 		</SliderStyle>
 	)
 };
-
-PlayerSlider.propTypes = _propTypes;
 
 export default PlayerSlider;

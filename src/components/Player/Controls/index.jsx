@@ -1,19 +1,19 @@
-import React from 'react';
+// @flow
+import * as React from 'react';
 import Sound from 'react-sound';
 import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/lib/md';
-import PropTypes from "prop-types";
 import PlayerControlsStyle from './style';
 
-const _propTypes = {
-  playingStatus: PropTypes.string.isRequired,
-  currentSongId: PropTypes.number.isRequired,
-  minimized: PropTypes.bool,
-  onPlayClick: PropTypes.func.isRequired,
-  onForwardClick: PropTypes.func.isRequired,
-  onRewindClick: PropTypes.func.isRequired,
-};
+type Props ={
+  playingStatus: string,
+  currentSongId: number,
+  minimized: boolean,
+  onPlayClick: (id: number) => void,
+  onForwardClick: () => void,
+  onRewindClick: () => void,
+}
 
-const PlayerControls = (props) => {
+const PlayerControls = (props: Props) => {
   return (
       <PlayerControlsStyle className={props.minimized ? 'minimized' : ''}>
         <div
@@ -37,7 +37,5 @@ const PlayerControls = (props) => {
       </PlayerControlsStyle>
   )
 };
-
-PlayerControls.propTypes = _propTypes;
 
 export default PlayerControls;

@@ -1,8 +1,15 @@
+// @flow
 import {
   ADD_SONG,
   DELETE_SONG,
   TOGGLE_PLAYLIST,
 } from "appRedux/actions/types";
+import type { Action, Song } from "flow/types";
+
+type State = {
+  +isOpened: boolean,
+  +songs: Array<Song>
+}
 
 const INITIAL_STATE = {
   isOpened: false,
@@ -49,7 +56,7 @@ const INITIAL_STATE = {
   ]
 };
 
-export default function playlistReducer(state = INITIAL_STATE, action) {
+export default function playlistReducer(state: State = INITIAL_STATE, action: Action ) {
   switch (action.type) {
     case TOGGLE_PLAYLIST: {
       return {
@@ -64,22 +71,22 @@ export default function playlistReducer(state = INITIAL_STATE, action) {
       }
     }
     case ADD_SONG: {
-      const {id, title, preview,  artist, album} = action.payload.song;
+      const song: Song = action.payload.song;
       return {
         ...state,
         songs: [
           ...state.songs,
           {
-            id,
-            title,
+            id: song.id,
+            title: song.title,
             duration: 30.7,
-            preview,
+            preview: song.preview,
             artist: {
-              name: artist.name,
+              name: song.artist.name,
             },
             album: {
-              title: album.title,
-              cover_big: album.cover_big,
+              title: song.album.title,
+              cover_big: song.album.cover_big,
             }
           }
         ]

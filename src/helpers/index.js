@@ -1,4 +1,5 @@
-export function getTimes(value) {
+// @flow
+export function getTimes(value: number) {
 
   function formatTime(time) {
     const int = parseInt(time, 10);
