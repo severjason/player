@@ -21,7 +21,7 @@ const PlayerMenu = (props: Props) => {
       <Confirmation
         showConfirmation={props.showConfirmation}
         toggleConfirmation={props.toggleConfirmation}
-        success={props.logout}
+        confirmed={props.logout}
       />
       <div className="menu-item-group">
         <div

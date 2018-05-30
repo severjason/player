@@ -4,7 +4,6 @@ import currentSongReducer from './currentSongReducer';
 import searchReducer from "./searchReducer";
 import authReducer from "./authReducer";
 import { reducer as formReducer } from 'redux-form'
-import confirmationReducer from "./confirmationReducer";
 
 
 const rootReducer = combineReducers({
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   currentSong: currentSongReducer,
   search: searchReducer,
   auth: authReducer,
-  confirmation: confirmationReducer,
   form: formReducer,
 });
 
