@@ -16,18 +16,19 @@ type Props = {
   userLoggedIn: boolean,
   username: string,
   songPosition: number,
-  showConfirmation: boolean,
   actions: Actions,
 }
 
 type State = {
   position: number,
+  showConfirmation: boolean,
 }
 
 class Player extends React.Component<Props, State> {
 
   state = {
     position: this.props.songPosition,
+    showConfirmation: false,
   };
 
   componentDidMount() {
@@ -89,6 +90,10 @@ class Player extends React.Component<Props, State> {
     this.props.actions.togglePlaylist();
   };
 
+  toggleConfirmation = () => {
+    this.setState({showConfirmation: !this.state.showConfirmation})
+  };
+
   setCurrentSong = (songId) => {
     const index = this.props.playlist.findIndex((song) => song.id === songId);
     this.props.actions.setSongPosition(0);
@@ -110,10 +115,9 @@ class Player extends React.Component<Props, State> {
   };
 
   render() {
-    const {position} = this.state;
+    const {position, showConfirmation} = this.state;
 
     const {
-      showConfirmation,
       actions,
       currentSong,
       playlistOpened,
@@ -130,7 +134,7 @@ class Player extends React.Component<Props, State> {
           username={username}
           showConfirmation={showConfirmation}
           logout={actions.userLogout}
-          toggleConfirmation={actions.toggleConfirmation}
+          toggleConfirmation={this.toggleConfirmation}
         />
         {(playlistOpened && currentSong)
           ? <Playlist
@@ -172,14 +176,13 @@ class Player extends React.Component<Props, State> {
 }
 
 export default connect(
-  ({playlist, currentSong, auth, confirmation}) => ({
+  ({playlist, currentSong, auth}) => ({
     playlist: playlist.songs,
     playlistOpened: playlist.isOpened,
     currentSong: currentSong.song,
     playingStatus: currentSong.status,
     songPosition: currentSong.position,
     userLoggedIn: auth.userLoggedIn,
-    showConfirmation: confirmation.showConfirmation,
     username: auth.username,
   }),
   dispatch => ({

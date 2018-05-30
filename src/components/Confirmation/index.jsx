@@ -6,7 +6,7 @@ import { MdClear, MdCheck } from 'react-icons/lib/md'
 type Props = {
   showConfirmation: boolean,
   toggleConfirmation: () => boolean,
-  success: () => void,
+  confirmed: () => void,
 }
 
 const Confirmation = (props: Props) => (
@@ -26,7 +26,7 @@ const Confirmation = (props: Props) => (
       <div
         className="button"
         onClick={() => {
-          props.success();
+          props.confirmed();
           props.toggleConfirmation();
         }}>
         <MdCheck/>
@@ -35,6 +35,5 @@ const Confirmation = (props: Props) => (
 
   </ConfirmationStyle>
 );
-
 
 export default Confirmation;
