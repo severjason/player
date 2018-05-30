@@ -11,7 +11,8 @@ import {
   UPDATE_SEARCH_INPUT,
   USER_LOGGED_IN,
   USER_LOGGED_OUT,
-  TOGGLE_CONFIRMATION
+  TOGGLE_CONFIRMATION,
+  USER_LOGIN_REQUEST_FROM_DEEZER
 } from "./types";
 import type { Action, Song, SoundStatus } from 'flow/types';
 
@@ -81,10 +82,11 @@ export const updateInput = (inputValue: string): Action => ({
   },
 });
 
-export const userLogin = (name: string): Action => ({
+export const userLogin = (name: string, token?: string): Action => ({
   type: USER_LOGGED_IN,
   payload: {
     username: name,
+    token: token ? token : '',
   }
 });
 
@@ -96,4 +98,11 @@ export const userLogout = (): Action => ({
 export const toggleConfirmation = (): Action => ({
   type: TOGGLE_CONFIRMATION,
   payload: {},
+});
+
+export const userLoginFromDeezer = (token: string): Action => ({
+  type: USER_LOGIN_REQUEST_FROM_DEEZER,
+  payload: {
+    token,
+  }
 });

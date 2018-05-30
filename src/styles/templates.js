@@ -67,6 +67,7 @@ export const LoaderStyle = styled.div`
 }
 .lds-rolling {
   position: relative;
+  margin: 0 auto;
 }
 .lds-rolling div,
 .lds-rolling div:after {

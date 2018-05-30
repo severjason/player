@@ -1,6 +1,11 @@
-import React from 'react';
+//@ flow
+import * as React from 'react';
 import { Login } from 'containers';
 
-const LoginPage = () => <Login/>;
+type Props = {
+  hash: string,
+}
+
+const LoginPage = (props: Props) => <Login hash={props.hash}/>;
 
 export default LoginPage;

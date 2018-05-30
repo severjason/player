@@ -11,3 +11,9 @@ export function getTimes(value: number) {
 
   return `${minutes}:${formatTime(seconds)}`;
 }
+
+export function getToken(hash: string) {
+  const tokenStartIndex = hash.indexOf("access_token=");
+  const endIndex = hash.slice(tokenStartIndex+13).indexOf("&");
+  return hash.substring(tokenStartIndex+13,endIndex+14);
+}

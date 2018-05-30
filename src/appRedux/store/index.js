@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from 'appRedux/reducers/index';
-import searchSongs from 'appRedux/saga';
+import watchAll from 'appRedux/saga';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -11,6 +11,6 @@ const store = createStore(
   applyMiddleware(sagaMiddleware)
 );
 
-sagaMiddleware.run(searchSongs);
+sagaMiddleware.run(watchAll);
 
 export default store;

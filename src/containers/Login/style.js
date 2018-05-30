@@ -28,6 +28,22 @@ export const LoginStyle = styled.div`
     text-align: right;
   }
   
+  .deezer-login {
+    text-align: center;
+    cursor: pointer;
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 10rem ;
+    }
+    &:hover {
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(.9);
+    }
+  }
+  
   .login-button {
     width: 4rem;
     height: 4rem;
