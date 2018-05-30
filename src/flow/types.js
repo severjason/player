@@ -67,4 +67,22 @@ export type Actions = {
   searchSongsRequest: (request: string) => Action;
   clearErrors: () => Action;
   updateInput: (inputValue: string) => Action;
+  userLogin: (name: string) => Action;
+  userLogout: () => Action;
+  toggleConfirmation: () => Action;
+}
+
+export type ReduxFormsInput = {
+  input: any;
+  placeholder?: string;
+  label: string;
+  className: string;
+  errorClass: string;
+  labelClass: string;
+  type: string;
+  meta: {
+    touched: boolean;
+    error: any;
+    warning?: any;
+  }
 }

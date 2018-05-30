@@ -9,6 +9,9 @@ import {
   SEARCH_SONGS_REQUEST,
   CLEAR_ERRORS, ADD_SONG,
   UPDATE_SEARCH_INPUT,
+  USER_LOGGED_IN,
+  USER_LOGGED_OUT,
+  TOGGLE_CONFIRMATION
 } from "./types";
 import type { Action, Song, SoundStatus } from 'flow/types';
 
@@ -76,4 +79,21 @@ export const updateInput = (inputValue: string): Action => ({
   payload: {
     inputValue,
   },
+});
+
+export const userLogin = (name: string): Action => ({
+  type: USER_LOGGED_IN,
+  payload: {
+    username: name,
+  }
+});
+
+export const userLogout = (): Action => ({
+  type: USER_LOGGED_OUT,
+  payload: {}
+});
+
+export const toggleConfirmation = (): Action => ({
+  type: TOGGLE_CONFIRMATION,
+  payload: {},
 });

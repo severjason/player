@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import SearchStyle from './style';
+import { SearchStyle, SearchInput } from './style';
 import Sound from 'react-sound';
 import { MdClear } from 'react-icons/lib/md';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import debounce from 'lodash/debounce';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import * as actions from "appRedux/actions";
-import type { Actions, Song, SoundStatus } from "../../flow/types";
+import type { Actions, Song, SoundStatus } from "flow/types";
 
 type Props = {
   playlist: Array<Song>,
@@ -54,6 +54,7 @@ class Search extends React.Component<Props, State> {
           this.props.actions.setSong(null);
         } else {
           this.props.actions.setSong(this.props.playlist[nextIndex]);
+          this.setState({position: 0});
           this.props.actions.setSongPosition(0);
         }
       }
@@ -106,12 +107,14 @@ class Search extends React.Component<Props, State> {
           />
           : null}
         <div className="search-element">
-          <input
-            value={inputValue}
-            className="input"
-            placeholder="track name..."
-            onChange={this.handleInput}
-          />
+          <SearchInput>
+            <input
+              value={inputValue}
+              className="input"
+              placeholder="track name..."
+              onChange={this.handleInput}
+            />
+          </SearchInput>
           <Link to={`/`} className="close-link"><MdClear/></Link>
         </div>
         {!isLoading && error.message

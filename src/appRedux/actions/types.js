@@ -22,3 +22,8 @@ export const SONGS_REQUEST_SUCCESS: string  = 'SONGS_REQUEST_SUCCESS';
 export const SONGS_REQUEST_FAILED: string  = 'SONGS_REQUEST_FAILED';
 export const CLEAR_ERRORS: string  = 'CLEAR_ERRORS';
 export const UPDATE_SEARCH_INPUT: string  = 'UPDATE_SEARCH_INPUT';
+
+export const USER_LOGGED_IN = 'USER_LOGGED_IN';
+export const USER_LOGGED_OUT = 'USER_LOGGED_OUT';
+
+export const TOGGLE_CONFIRMATION = 'TOGGLE_CONFIRMATION';

@@ -1,4 +1,5 @@
 import { flexWidth100 } from 'styles';
+import { styledInput } from 'styles/templates';
 
 const SearchStyle = flexWidth100.extend`
   width: auto;
@@ -22,24 +23,15 @@ const SearchStyle = flexWidth100.extend`
     padding-top: .5rem;
     text-align: center;
   }
-  .input {
-    width: 90%;
-    height: 2rem;
-    line-height: 2rem;
-    font-size: 1rem;
-    border: 0;
-    outline: 0;
-    background: ${props => props.theme.mainColor};
-    color: ${props => props.theme.mainTextColor};
-    
-    &::placeholder {
-      color: ${props => props.theme.secondaryTextColor};
-    }
-    
-    &:focus {
-      border-bottom: 1px solid ${props => props.theme.secondaryColor};
-    }
-  }
 `;
 
-export default SearchStyle;
+const SearchInput = styledInput.extend`
+  width: 90%;
+`;
+
+
+
+export {
+  SearchStyle,
+  SearchInput,
+};
