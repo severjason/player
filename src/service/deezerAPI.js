@@ -20,18 +20,9 @@ export function auth() {
   const appID = "280604";
   const redirectUri = "http://localhost:3000/login";
   const perms = "basic_access,email";
-  // const jsonpOutput = "&output=jsonp";
   const secret = "a7b6b75d7426b2d7ea6ed1b767125ae8";
   const request = `${urlDeezerAPI}app_id=${appID}&secret=${secret}&redirect_uri=${redirectUri}&perms=${perms}&response_type=token`;
-  // return fetch(corsEnywhere + request)
-  //   .then(results => console.log(results))
-  //   /*.then(response => {
-  //     window.open(URL.createObjectURL(response));
-  //     console.log(response);
-  //   });*/
-/*  const x = window.screen.width/2 - 600/2;
-  const y = window.screen.height/2 - 600/2;*/
-  window.open(request, '_self','height=600,width=600');
+  window.open(request, '_self');
 }
 
 export function login(token: string) {
@@ -43,4 +34,11 @@ export function login(token: string) {
     .then(results => results.json())
     .then(json => json.error ? json.error : json)
     .catch(error => error);
+}
+
+export function logout() {
+  const logoutUrl = "https://www.deezer.com/logout.php";
+  const x = window.screen.width/2 - 600/2;
+  const y = window.screen.height/2 - 600/2;
+  window.open(logoutUrl, '_blank','height=600,width=600, left=' + x + ',top=' + y);
 }

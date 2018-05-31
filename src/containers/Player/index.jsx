@@ -15,6 +15,7 @@ type Props = {
   playingStatus: string,
   userLoggedIn: boolean,
   username: string,
+  token: string,
   songPosition: number,
   actions: Actions,
 }
@@ -114,11 +115,14 @@ class Player extends React.Component<Props, State> {
     }
   };
 
+  handleLogout = () => {
+    this.props.token ? this.props.actions.userLogoutFromDeezer() : this.props.actions.userLogout();
+  };
+
   render() {
     const {position, showConfirmation} = this.state;
 
     const {
-      actions,
       currentSong,
       playlistOpened,
       playingStatus,
@@ -133,7 +137,7 @@ class Player extends React.Component<Props, State> {
           userLoggedIn={userLoggedIn}
           username={username}
           showConfirmation={showConfirmation}
-          logout={actions.userLogout}
+          logout={this.handleLogout}
           toggleConfirmation={this.toggleConfirmation}
         />
         {(playlistOpened && currentSong)
@@ -184,6 +188,7 @@ export default connect(
     songPosition: currentSong.position,
     userLoggedIn: auth.userLoggedIn,
     username: auth.username,
+    token: auth.token,
   }),
   dispatch => ({
     actions: bindActionCreators(actions, dispatch),

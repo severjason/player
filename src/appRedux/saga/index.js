@@ -3,8 +3,10 @@
 import {
   SEARCH_SONGS_REQUEST,
   SONGS_REQUEST_FAILED,
-  SONGS_REQUEST_SUCCESS, USER_LOGGED_IN, USER_LOGGED_OUT,
-  USER_LOGIN_REQUEST_FROM_DEEZER
+  SONGS_REQUEST_SUCCESS,
+  USER_LOGGED_IN, USER_LOGGED_OUT,
+  USER_LOGIN_REQUEST_FROM_DEEZER,
+  USER_LOGGED_OUT_FROM_DEEZER
 } from "../actions/types";
 import { call, put, takeLatest, all } from 'redux-saga/effects';
 import * as api from 'service/deezerAPI';
@@ -61,12 +63,29 @@ function* deezerLogin(action): Saga<void> {
   }
 }
 
+function* deezerLogout(): Saga<void> {
+  try {
+    yield call(api.logout);
+    yield put({
+      type: USER_LOGGED_OUT,
+      payload: {},
+    })
+
+  } catch (error) {
+    yield put({
+      type: USER_LOGGED_OUT,
+      payload: {},
+    })
+  }
+}
+
 
 
 function* watchAll(): Saga<void> {
   yield all([
     yield takeLatest(SEARCH_SONGS_REQUEST, fetchSongs),
     yield takeLatest(USER_LOGIN_REQUEST_FROM_DEEZER, deezerLogin),
+    yield takeLatest(USER_LOGGED_OUT_FROM_DEEZER, deezerLogout),
   ]);
 }
 

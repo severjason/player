@@ -12,7 +12,8 @@ import {
   USER_LOGGED_IN,
   USER_LOGGED_OUT,
   TOGGLE_CONFIRMATION,
-  USER_LOGIN_REQUEST_FROM_DEEZER
+  USER_LOGIN_REQUEST_FROM_DEEZER,
+  USER_LOGGED_OUT_FROM_DEEZER,
 } from "./types";
 import type { Action, Song, SoundStatus } from 'flow/types';
 
@@ -105,4 +106,9 @@ export const userLoginFromDeezer = (token: string): Action => ({
   payload: {
     token,
   }
+});
+
+export const userLogoutFromDeezer = (): Action => ({
+  type: USER_LOGGED_OUT_FROM_DEEZER,
+  payload: {}
 });

@@ -71,6 +71,7 @@ export type Actions = {
   userLogout: () => Action;
   toggleConfirmation: () => Action;
   userLoginFromDeezer: (token: string) => Action;
+  userLogoutFromDeezer: () => Action;
 }
 
 export type ReduxFormsInput = {
