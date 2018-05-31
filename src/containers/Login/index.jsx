@@ -6,10 +6,15 @@ import { LoginStyle } from './style';
 import { reduxForm, Field } from 'redux-form';
 import type { FormProps } from 'redux-form';
 import { LoginInput } from 'components/Login';
+import { Loader } from 'components';
 import type { Actions } from "flow/types";
 import * as actions from "appRedux/actions";
+import { getToken } from "helpers";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import * as api from 'service/deezerAPI';
+import * as deezerLogo from 'img/deezer.png';
+
 
 type validatedValues = {
   username: string;
@@ -34,56 +39,84 @@ export const validateLoginInput = (values: validatedValues): validatedErrors => 
 
 type Props = {
   ...FormProps,
+  hash: string,
   actions: Actions,
 }
 
-
 class LoginForm extends React.Component<Props> {
 
-  render() {
-    const {userLoggedIn, actions, invalid, pristine, submitting, handleSubmit}: Props = this.props;
+  componentDidMount() {
+    if (getToken(this.props.hash)) {
+      this.props.actions.userLoginFromDeezer(getToken(this.props.hash));
+    }
+  }
 
-    return !userLoggedIn ? (
-      <LoginStyle>
-        <div className="login-item">
-          <form
-            name="login"
-            className="login-form"
-            onSubmit={handleSubmit(data => {
-              actions.userLogin(data.username);
-            })}
-          >
-            <div className="login-title">
-              Login form
+  render() {
+
+    const {
+      userLoggedIn,
+      actions,
+      invalid,
+      pristine,
+      submitting,
+      handleSubmit}: Props = this.props;
+
+    return !userLoggedIn && getToken(this.props.hash)
+      ? <Loader/>
+      : (!userLoggedIn && !getToken(this.props.hash))
+        ? (
+          <LoginStyle>
+            <div className="login-item">
+              <form
+                name="login"
+                className="login-form"
+                onSubmit={handleSubmit(data => {
+                  actions.userLogin(data.username);
+                })}
+              >
+                <div className="login-title">
+                  Login form
+                </div>
+                <Field
+                  name="username"
+                  component={LoginInput}
+                  className="input"
+                  errorClass="input-error"
+                  labelClass="input-label"
+                  type="text"
+                  label="Login"
+                />
+                <Field
+                  name="password"
+                  component={LoginInput}
+                  className="input"
+                  errorClass="input-error"
+                  labelClass="input-label"
+                  type="password"
+                  label="Password"/>
+                <button
+                  disabled={invalid || pristine || submitting}
+                  type="submit"
+                  className="login-button"
+                >
+                  <MdCheck/>
+                </button>
+              </form>
+              <div
+                onClick={api.auth}
+                className="deezer-login"
+              >
+                <img
+                  src={deezerLogo}
+                  alt="login with deezer"
+                  title="login with deezer"
+                />
+              </div>
             </div>
-            <Field
-              name="username"
-              component={LoginInput}
-              className="input"
-              errorClass="input-error"
-              labelClass="input-label"
-              type="text"
-              label="Login"
-            />
-            <Field
-              name="password"
-              component={LoginInput}
-              className="input"
-              errorClass="input-error"
-              labelClass="input-label"
-              type="password"
-              label="Password"/>
-            <button
-              disabled={invalid || pristine || submitting}
-              type="submit"
-              className="login-button"
-            >
-              <MdCheck/>
-            </button>
-          </form>
-        </div>
-      </LoginStyle>
-    ) : <Redirect to='/player' />
+          </LoginStyle>
+        )
+        : <Redirect to='/player' />;
+
   }
 }
 
@@ -100,3 +133,4 @@ export default connect(
     actions: bindActionCreators(actions, dispatch),
   })
 )(Login);
+

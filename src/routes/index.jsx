@@ -9,7 +9,9 @@ const Routes = () => {
       <Switch>
         <PrivateRoute path="/player" component={HomePage}/>
         <PrivateRoute path="/search" component={SearchPage}/>
-        <Route path="/login" component={LoginPage} />
+        <Route path="/login" render={(route) => {
+          return <LoginPage hash={route.location.hash}/>;
+        }} />
         <Route path="*" render={() => <Redirect to="/login"/>}/>
       </Switch>
     </div>
