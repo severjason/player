@@ -12,8 +12,9 @@ import { call, put, takeLatest, all } from 'redux-saga/effects';
 import * as api from 'service/deezerAPI';
 
 import type { Saga } from 'redux-saga';
+import type { Action } from "flow/types";
 
-function* fetchSongs(action): Saga<void> {
+export function* fetchSongs(action: Action): Saga<void> {
   try {
     const response = yield call(api.findSong, action.payload.request);
 
@@ -40,7 +41,7 @@ function* fetchSongs(action): Saga<void> {
   }
 }
 
-function* deezerLogin(action): Saga<void> {
+export function* deezerLogin(action: Action): Saga<void> {
   try {
     const response = yield call(api.login, action.payload.token);
     yield (response.name)
@@ -63,7 +64,7 @@ function* deezerLogin(action): Saga<void> {
   }
 }
 
-function* deezerLogout(): Saga<void> {
+export function* deezerLogout(): Saga<void> {
   try {
     yield call(api.logout);
     yield put({

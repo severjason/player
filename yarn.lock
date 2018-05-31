@@ -5740,6 +5740,10 @@ react-is@^16.3.1:
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.3.2.tgz#f4d3d0e2f5fbb6ac46450641eb2e25bf05d36b22"
 
+react-is@^16.4.0:
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.4.0.tgz#cc9fdc855ac34d2e7d9d2eb7059bbc240d35ffcf"
+
 react-rangeslider@^2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/react-rangeslider/-/react-rangeslider-2.2.0.tgz#4362b01f4f5a455f0815d371d496f69ca4c6b5aa"
@@ -5832,6 +5836,15 @@ react-sound@^1.2.0:
   dependencies:
     prop-types "^15.5.7"
     soundmanager2 "^2.97.20170602"
+
+react-test-renderer@^16.4.0:
+  version "16.4.0"
+  resolved "https://registry.yarnpkg.com/react-test-renderer/-/react-test-renderer-16.4.0.tgz#0dbe0e24263e94e1830c7afb1f403707fad313a3"
+  dependencies:
+    fbjs "^0.8.16"
+    object-assign "^4.1.1"
+    prop-types "^15.6.0"
+    react-is "^16.4.0"
 
 react@^16.3.2:
   version "16.3.2"
@@ -5945,6 +5958,10 @@ redux-form@^7.3.0:
 redux-persist@^5.9.1:
   version "5.9.1"
   resolved "https://registry.yarnpkg.com/redux-persist/-/redux-persist-5.9.1.tgz#83bd4abd526ef768f63fceee338fa9d8ed6552d6"
+
+redux-saga-testing@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/redux-saga-testing/-/redux-saga-testing-1.0.5.tgz#17c49b2de99fcf653dcf91fc1fd383cc99c5a0e2"
 
 redux-saga@^0.16.0:
   version "0.16.0"
