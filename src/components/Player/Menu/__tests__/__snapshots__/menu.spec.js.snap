@@ -1,0 +1,297 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <PlayerMenu
+    logout={[Function]}
+    playlistOpened={false}
+    showConfirmation={false}
+    toggleConfirmation={[Function]}
+    togglePlaylist={[Function]}
+    userLoggedIn={false}
+    username="username"
+/>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "children": Array [
+        <Confirmation
+          confirmed={[Function]}
+          showConfirmation={false}
+          toggleConfirmation={[Function]}
+/>,
+        <div
+          className="menu-item-group"
+>
+          <div
+                    className="menu-item "
+                    onClick={[Function]}
+          >
+                    <MdQueueMusic />
+          </div>
+</div>,
+        <div
+          className="menu-item-group"
+>
+          <Link
+                    replace={false}
+                    to="/search"
+          >
+                    <MdSearch />
+          </Link>
+</div>,
+      ],
+      "justifyContent": "space-between",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "confirmed": [Function],
+          "showConfirmation": false,
+          "toggleConfirmation": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": Array [
+            <div
+              className="menu-item "
+              onClick={[Function]}
+>
+              <MdQueueMusic />
+</div>,
+            null,
+          ],
+          "className": "menu-item-group",
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <MdQueueMusic />,
+              "className": "menu-item ",
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          null,
+        ],
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "children": <Link
+            replace={false}
+            to="/search"
+>
+            <MdSearch />
+</Link>,
+          "className": "menu-item-group",
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": <MdSearch />,
+            "replace": false,
+            "to": "/search",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {},
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        "type": "div",
+      },
+    ],
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "children": Array [
+          <Confirmation
+            confirmed={[Function]}
+            showConfirmation={false}
+            toggleConfirmation={[Function]}
+/>,
+          <div
+            className="menu-item-group"
+>
+            <div
+                        className="menu-item "
+                        onClick={[Function]}
+            >
+                        <MdQueueMusic />
+            </div>
+</div>,
+          <div
+            className="menu-item-group"
+>
+            <Link
+                        replace={false}
+                        to="/search"
+            >
+                        <MdSearch />
+            </Link>
+</div>,
+        ],
+        "justifyContent": "space-between",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "confirmed": [Function],
+            "showConfirmation": false,
+            "toggleConfirmation": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": Array [
+              <div
+                className="menu-item "
+                onClick={[Function]}
+>
+                <MdQueueMusic />
+</div>,
+              null,
+            ],
+            "className": "menu-item-group",
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": <MdQueueMusic />,
+                "className": "menu-item ",
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {},
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              "type": "div",
+            },
+            null,
+          ],
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Link
+              replace={false}
+              to="/search"
+>
+              <MdSearch />
+</Link>,
+            "className": "menu-item-group",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": <MdSearch />,
+              "replace": false,
+              "to": "/search",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {},
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          "type": "div",
+        },
+      ],
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
