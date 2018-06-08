@@ -14,6 +14,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as api from 'service/deezerAPI';
 import * as deezerLogo from 'img/deezer.png';
+import { compose, lifecycle, branch, renderComponent } from 'recompose';
 
 
 type validatedValues = {
@@ -43,15 +44,7 @@ type Props = {
   actions: Actions,
 }
 
-class LoginForm extends React.Component<Props> {
-
-  componentDidMount() {
-    if (getToken(this.props.hash)) {
-      this.props.actions.userLoginFromDeezer(getToken(this.props.hash));
-    }
-  }
-
-  render() {
+const Login = (props: Props) => {
 
     const {
       userLoggedIn,
@@ -59,11 +52,10 @@ class LoginForm extends React.Component<Props> {
       invalid,
       pristine,
       submitting,
-      handleSubmit}: Props = this.props;
+      handleSubmit
+    }: Props = props;
 
-    return !userLoggedIn && getToken(this.props.hash)
-      ? <Loader/>
-      : (!userLoggedIn && !getToken(this.props.hash))
+    return (!userLoggedIn && !getToken(props.hash))
         ? (
           <LoginStyle>
             <div className="login-item">
@@ -115,22 +107,35 @@ class LoginForm extends React.Component<Props> {
             </div>
           </LoginStyle>
         )
-        : <Redirect to='/player' />;
+        : <Redirect to='/player'/>;
+};
 
-  }
-}
-
-const Login = reduxForm({
-  form: 'login',
-  validate: validateLoginInput,
-})(LoginForm);
-
-export default connect(
-  ({auth}) => ({
-    userLoggedIn: auth.userLoggedIn,
+const enhance = compose(
+  connect(
+    ({auth}) => ({
+      userLoggedIn: auth.userLoggedIn,
+    }),
+    dispatch => ({
+      actions: bindActionCreators(actions, dispatch),
+    })
+  ),
+  reduxForm({
+    form: 'login',
+    validate: validateLoginInput,
   }),
-  dispatch => ({
-    actions: bindActionCreators(actions, dispatch),
-  })
-)(Login);
+  lifecycle({
+    componentDidMount() {
+      if (getToken(this.props.hash)) {
+        this.props.actions.userLoginFromDeezer(getToken(this.props.hash));
+      }
+    }
+  }),
+  branch(
+    props => !props.userLoggedIn && getToken(props.hash),
+    renderComponent(Loader)
+  )
+);
+
+
+export default enhance(Login);
 
