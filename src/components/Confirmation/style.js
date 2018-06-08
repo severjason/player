@@ -4,7 +4,7 @@ const ConfirmationStyle = styled.div`
   position: absolute;
   display: none;
   width: 100%;
-  height: 150%;
+  height: 200%;
   max-height: 35rem;
   margin: -.5rem;
   border-radius: 3px;
