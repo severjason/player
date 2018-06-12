@@ -8,13 +8,13 @@ import {
 type State = {
   +userLoggedIn: boolean;
   +username: string;
-  +token: string;
+  +token: string | null;
 }
 
 const INITIAL_STATE = {
   userLoggedIn: false,
   username: '',
-  token: '',
+  token: null,
 };
 
 export default function authReducer(state: State = INITIAL_STATE, action: Action): State {
@@ -30,7 +30,7 @@ export default function authReducer(state: State = INITIAL_STATE, action: Action
       return {
         userLoggedIn: false,
         username: '',
-        token: '',
+        token: null,
       }
     }
     default: {
