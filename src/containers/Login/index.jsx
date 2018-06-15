@@ -15,6 +15,7 @@ import { bindActionCreators } from "redux";
 import * as api from 'service/deezerAPI';
 import * as deezerLogo from 'img/deezer.png';
 import { compose, lifecycle, branch, renderComponent } from 'recompose';
+import { auth } from 'app_firebase/auth';
 
 
 type validatedValues = {
@@ -63,7 +64,10 @@ const Login = (props: Props) => {
                 name="login"
                 className="login-form"
                 onSubmit={handleSubmit(data => {
-                  actions.userLogin(data.username);
+                  console.log(data);
+                  auth.signInWithEmailAndPassword(data.username, data.password)
+                    .then((data) => actions.userLogin(data.username))
+                    .catch((error) => console.log(error));
                 })}
               >
                 <div className="login-title">
