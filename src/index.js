@@ -1,28 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import styled from 'styled-components';
-import './index.css';
-import { mainTheme } from './styles/themes';
-import { Home } from './containers';
+import { ThemeProvider } from 'styled-components';
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from 'appRedux/store';
+import { mainTheme, GlobalStyle } from 'styles';
+import Routes from 'routes';
 import registerServiceWorker from './registerServiceWorker';
 
-const GlobalStyle = styled.div`
-  a {
-    color: ${props => props.theme.mainTextColor};
-    text-decoration: none;
-    
-    &:hover, &.active {
-      color: ${props => props.theme.secondaryColor};
-    }
-  }
-`;
-
 ReactDOM.render(
-  <BrowserRouter>
-    <GlobalStyle theme={mainTheme}>
-      <Home/>
-    </GlobalStyle>
-  </BrowserRouter>,
+  <Provider store={store}>
+    <PersistGate persistor={persistor}>
+      <BrowserRouter>
+        <ThemeProvider theme={mainTheme}>
+          <GlobalStyle>
+            <Routes/>
+          </GlobalStyle>
+        </ThemeProvider>
+      </BrowserRouter>
+    </PersistGate>
+  </Provider>,
   document.getElementById('root'));
 registerServiceWorker();

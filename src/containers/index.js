@@ -1,7 +1,9 @@
-import Home from './Home';
 import Search from './Search';
+import Player from './Player';
+import Login from './Login';
 
 export {
-  Home,
   Search,
+  Player,
+  Login,
 };

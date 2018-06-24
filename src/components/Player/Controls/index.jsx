@@ -1,15 +1,40 @@
-import React from 'react';
-import styled from 'styled-components';
+// @flow
+import * as React from 'react';
+import Sound from 'react-sound';
+import { MdFastForward, MdPlayArrow, MdPause, MdFastRewind } from 'react-icons/lib/md';
+import PlayerControlsStyle from './style';
 
-const Wrapper = styled('div')`
-  
-`;
+type Props ={
+  playingStatus: string,
+  currentSongId: number,
+  minimized: boolean,
+  onPlayClick: (id: number) => void,
+  onForwardClick: () => void,
+  onRewindClick: () => void,
+}
 
-const PlayerControls = () => {
+const PlayerControls = (props: Props) => {
   return (
-      <Wrapper>
-        Player Controls
-      </Wrapper>
+      <PlayerControlsStyle className={props.minimized ? 'minimized' : ''}>
+        <div
+          className='controls-element'
+          onClick={props.onRewindClick}
+        >
+          <MdFastRewind/>
+        </div>
+        <div
+          className='controls-element play'
+          onClick={() => props.onPlayClick(props.currentSongId)}
+        >
+          {(props.playingStatus === Sound.status.PLAYING) ? <MdPause/> : <MdPlayArrow/>}
+        </div>
+        <div
+          className='controls-element'
+          onClick={props.onForwardClick}
+        >
+          <MdFastForward/>
+        </div>
+      </PlayerControlsStyle>
   )
 };
 
