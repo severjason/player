@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import type { Song, Actions } from 'flow/types';
 import * as actions from 'appRedux/actions';
+import { auth } from 'app_firebase/auth';
 
 type Props = {
   playlist: Array<Song>,
@@ -116,7 +117,7 @@ class Player extends React.Component<Props, State> {
   };
 
   handleLogout = () => {
-    this.props.token ? this.props.actions.userLogoutFromDeezer() : this.props.actions.userLogout();
+    this.props.token ? this.props.actions.userLogoutFromDeezer() : auth.signOut().then(() => this.props.actions.userLogout());
   };
 
   render() {
