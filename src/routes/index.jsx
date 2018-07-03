@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { LoginPage } from 'pages';
+import { LoginPage, SearchPage } from 'pages';
 import PrivateRoute from 'routes/private';
 import { asyncComponent } from 'containers';
 
@@ -9,7 +9,7 @@ const Routes = () => {
     <div className='container'>
       <Switch>
         <PrivateRoute path="/player" component={asyncComponent(()=>import('pages/HomePage'))}/>
-        <PrivateRoute path="/search" component={asyncComponent(()=>import('pages/SearchPage'))}/>
+        <PrivateRoute path="/search" component={SearchPage}/>
         <Route path="/login" render={(route) => {
           return <LoginPage hash={route.location.hash}/>;
         }} />

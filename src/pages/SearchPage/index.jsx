@@ -1,6 +1,9 @@
-import React from 'react';
-import { Search } from 'containers';
+import Loadable from 'react-loadable';
+import {Loader} from 'components';
 
-const SearchPage = () => <Search/>;
+const SearchPage = Loadable({
+  loader: () => import('containers/Search'),
+  loading: Loader,
+});
 
 export default SearchPage;
