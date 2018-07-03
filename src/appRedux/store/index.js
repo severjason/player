@@ -1,3 +1,4 @@
+import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import rootReducer from 'appRedux/reducers/index';
@@ -22,6 +23,11 @@ const customMiddleware = store => next => action => {
   }
   next(action);
 };
+
+if (process.env.NODE_ENV !== 'production') {
+  const {whyDidYouUpdate} = require('why-did-you-update');
+  whyDidYouUpdate(React);
+}
 
 const persistConfig = {
   key: 'awesome-player',
